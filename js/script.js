@@ -1,19 +1,22 @@
 console.log("HELLO WORLD");
 
 var charactersUrl = "https://rickandmortyapi.com/api/character"
+var isSplashScreenTimerGone = false
+var isContentLoaded = false
 
+var onLoad = function(){
+  setTimeout(splashScreenTimeOut,1200)
+}
 
-/** ONE OPTION TO FETCH DATA with fetch
-fetch(charactersUrl)
-  .then((response) => {
-    return response.text();
-  })
-  .then((data) => {
-console.log(data)
-});
-*/
+function splashScreenTimeOut(){
+  isSplashScreenTimerGone = true
+  if(isContentLoaded)removeSplashScreen()
+}
 
-/** ANOTHER OPTION TO FETCH DATA */
+function removeSplashScreen(){
+  var splashScreen = document.getElementById('splash')
+  splashScreen.classList.add('display-none');
+}
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET",charactersUrl,true);
@@ -22,6 +25,8 @@ xmlhttp.send();
 xmlhttp.onreadystatechange = function(){
 
     if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+      isContentLoaded = true
+      if(isSplashScreenTimerGone)removeSplashScreen
         var data = xmlhttp.responseText
         var json = JSON.parse(data)
         var results = json.results
