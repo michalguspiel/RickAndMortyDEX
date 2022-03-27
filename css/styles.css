@@ -3,9 +3,15 @@
     --darker-green: #54CD2D;
     --darkerst-green: #1F8000;
     --gray: #b9b8b8;
+    --light-gray: #d6d6d6;
     --black: #000000;
     --light-black: #161616;
+    --background-color : #444444;
   }
+
+body{
+    background-color: var(--background-color);
+}
 
 #splash{
     position: fixed;
@@ -73,21 +79,48 @@
     box-shadow: 0 0 0 2px var(--gray);
 }
 
+h5{
+    color: var(--black);
+    font-weight: 450;
+    font-size: 18px;
+}
+
+.attribute{
+ color: var(--light-black);   
+ font-weight: 300;
+
+}
 
 #hero_holder{
     margin: 10px 40px;
 }
 
 .hero-card{
+    text-align: center;
     background-color: var(--gray);
     float: left;
     margin: 10px;
-    padding: 20px;
+    border-radius: 2%;
+    border: 3px solid var(--light-green);
+    padding: 5px 20px 10px 20px;
 
 }
 
+.name-background{
+    background-color: var(--light-gray);
+    border: 2px solid var(black);
+}
+
+.hero-card h2{
+    font-weight: 600;
+    letter-spacing: -2px;
+    color: var(--light-black);
+    padding: 2px 6px;
+}
+
 .hero-card-pic{
+    margin-bottom: 8px;
     width: 200px;
     height: 200px;
-
+    box-shadow: 0px 4px 8px 0 var(--light-black) ;
 }

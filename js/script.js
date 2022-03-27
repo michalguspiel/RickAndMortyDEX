@@ -72,16 +72,42 @@ xmlhttp.onreadystatechange = function(){
             var hero = document.createElement('div');
             hero.id = "hero";
             hero.className += 'hero-card';
-        
+            heroLocation = getFirstAppearance(heroData.episode[0],hero)
             hero.innerHTML = `
             <div>
-            <h2> ${heroData.name} </h2>
+            <div class="name-background"> <h2> ${heroData.name} </h2> </div>
             <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
+            <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
+            <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+            <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${heroData.origin.name}</h5></div>
             </div>
             `
             holder.append(hero);
         }
     }
+}
+
+
+/**
+ * Get first appearance and add it to the hero card.
+ * 
+*/
+var getFirstAppearance = function(url,hero){
+  console.log("Tryin to get location")
+  var xhr = new XMLHttpRequest;
+  xhr.open("GET",url,true);
+  xhr.send();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data = xhr.responseText
+        var json = JSON.parse(data)
+        hero.innerHTML += `
+        <div class="d-flex flex-row">
+          <h5 id="first-app" class="attribute">First appearance:&nbsp;</h5> <h5>${json.name}</h5>
+        </div> 
+          `
+    }
+  }
 }
 
 /**
