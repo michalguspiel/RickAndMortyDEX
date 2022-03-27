@@ -1,3 +1,12 @@
+:root {
+    --light-green: #37E300;
+    --darker-green: #54CD2D;
+    --darkerst-green: #1F8000;
+    --gray: #b9b8b8;
+    --black: #000000;
+    --light-black: #161616;
+  }
+
 #splash{
     position: fixed;
     top: 0;
@@ -36,4 +45,49 @@
 .fade-in{
     opacity: 0;
     animation: fadeIn 1s ease-in forwards
+}
+
+#footer {
+        position: relative;
+      margin-top: -0%; /* negative value of footer height */
+      height: -10%;
+      clear:both;
+      align-items: center;
+      margin-bottom: 5px;
+  } 
+
+.btn-custom{
+    letter-spacing: -1px;
+    font-weight: 550;
+    padding: 4px 8px;
+    background-color: var(--light-green);
+    border: 1px solid var(--black);
+    border-radius: 4px;
+    color: var(--light-black);
+}
+
+.btn-custom:hover{
+    background-color: var(--darker-green) !important;
+}
+.btn-custom:active{
+    box-shadow: 0 0 0 2px var(--gray);
+}
+
+
+#hero_holder{
+    margin: 10px 40px;
+}
+
+.hero-card{
+    background-color: var(--gray);
+    float: left;
+    margin: 10px;
+    padding: 20px;
+
+}
+
+.hero-card-pic{
+    width: 200px;
+    height: 200px;
+
 }
