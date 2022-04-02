@@ -3,10 +3,13 @@ console.log("HELLO WORLD");
 var charactersUrl = "https://rickandmortyapi.com/api/character"
 var nextPageToLoad =  "https://rickandmortyapi.com/api/character/?page=2"
 
-var splashScreen = document.getElementById('splash')
-var loadMoreBtn = document.getElementById('load-more-btn')
-var holder = document.getElementById("hero_holder")
+var splashScreen = document.getElementById('splash');
+var loadMoreBtn = document.getElementById('load-more-btn');
+var searchToolbar = document.getElementById('search');
+var searchedPhrase = '';
+var holder = document.getElementById("hero_holder");
 var xmlhttp = new XMLHttpRequest();
+
 
 /**
  * Theese are two flags regarding splash screen.
@@ -47,6 +50,19 @@ function removeSplashScreen(){
 loadMoreBtn.addEventListener('click',function(){
   loadMoreHeros()
 })
+
+/**Listen to the change of value in searchbar */
+searchToolbar.addEventListener('keyup',function(){
+searchedPhrase = searchToolbar.value;
+holder.innerHTML = '' //  restart holder
+if(searchedPhrase.value != '') getSearchedResults(searchedPhrase); // if there's phrase to search use it
+else getHeroes(charactersUrl); // otherwise get basic characters
+})
+
+var getSearchedResults = function(phrase){
+ var url = "https://rickandmortyapi.com/api/character/?name=" + phrase
+  getHeroes(url)
+}
 
 /**
  * Sending request to the API
