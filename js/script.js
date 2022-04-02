@@ -55,6 +55,7 @@ loadMoreBtn.addEventListener('click',function(){
 searchToolbar.addEventListener('keyup',function(){
 searchedPhrase = searchToolbar.value;
 holder.innerHTML = '' //  restart holder
+loadMoreBtn.style.visibility = 'hidden';
 if(searchedPhrase.value != '') getSearchedResults(searchedPhrase); // if there's phrase to search use it
 else getHeroes(charactersUrl); // otherwise get basic characters
 })
@@ -130,8 +131,10 @@ var getFirstAppearance = function(url,hero){
  * Updates the variable which holds the next page to load
  */
 var updateNextPage = function(json){
+  console.log("Next page: "+json.info.next)
   var nextPage = json.info.next
   nextPageToLoad = nextPage
+  if(json.info.next != null)loadMoreBtn.style.visibility = 'visible'
 }
 
 /** Loads more characters to the page*/
