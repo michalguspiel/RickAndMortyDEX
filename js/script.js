@@ -163,8 +163,8 @@ var getFirstAppearance = function(url,hero){
       var data = xhr.responseText
         var json = JSON.parse(data)
         hero.innerHTML += `
-        <div class="d-flex flex-row">
-          <h5 id="first-app" class="attribute">First appearance:&nbsp;</h5> <h5>${json.name}</h5>
+        <div class="d-flex flex-row mb-3">
+          <h5 id="first-app" class="attribute text-start">First appearance:&nbsp;</h5> <h5 class="text-start">${json.name}</h5>
         </div> 
           `
     }
