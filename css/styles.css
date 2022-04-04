@@ -103,7 +103,10 @@ h5{
     border-radius: 2%;
     border: 3px solid var(--light-green);
     padding: 5px 20px 10px 20px;
+}
 
+.hero-card:hover {
+    cursor: pointer;
 }
 
 .name-background{
@@ -116,10 +119,6 @@ h5{
     letter-spacing: -2px;
     color: var(--light-black);
     padding: 2px 6px;
-}
-
-.hero-card:hover {
-    cursor: pointer;
 }
 
 .hero-card-pic{
