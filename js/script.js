@@ -91,18 +91,19 @@ xmlhttp.onreadystatechange = function(){
             hero.className += 'hero-card';
             heroLocation = getFirstAppearance(heroData.episode[0],hero)
             hero.innerHTML = `
-            <div>
-            <div class="name-background"> <h2> ${heroData.name} </h2> </div>
+            <div class="name-background" data-bs-toggle="modal" data-bs-target="#heroModal"> <h2> ${heroData.name} </h2> </div>
             <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
             <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
             <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
             <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${heroData.origin.name}</h5></div>
-            </div>
             `
             holder.append(hero);
         }
     }
 }
+
+
+
 
 
 /**
@@ -141,3 +142,17 @@ var updateNextPage = function(json){
 var loadMoreHeros = function(){
   getHeroes(nextPageToLoad)
 }
+
+function showHeroModal(json){
+  console.log(json);
+
+  // The code below puts data from the card into the modal but I can't figure out 
+  // how to access the rest of the data from the JSON object yet
+  
+  var name = json.path[0].innerText;
+  var content = json.path[2].innerText;
+  document.getElementById("heroModalName").innerText = `${name}`
+  document.getElementById("heroModalContent").innerText = `${content}`
+}
+
+document.getElementById("hero_holder").addEventListener("click", showHeroModal);
