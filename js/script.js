@@ -87,24 +87,44 @@ xmlhttp.onreadystatechange = function(){
         for (i = 0; i < results.length; i++){
             var heroData = results[i]
             var hero = document.createElement('div');
-            hero.id = "hero";
+            hero.id = "hero"+heroData.id;
             hero.className += 'hero-card';
             heroLocation = getFirstAppearance(heroData.episode[0],hero)
-            hero.innerHTML = `
-            <div class="name-background" data-bs-toggle="modal" data-bs-target="#heroModal"> <h2> ${heroData.name} </h2> </div>
-            <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
-            <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
-            <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
-            <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${heroData.origin.name}</h5></div>
-            `
+            drawCard(heroData,hero)
+           
+            addOnClickListenerToThisCard(heroData,hero)
             holder.append(hero);
         }
     }
 }
 
+var drawCard = function(heroData,hero){
+  hero.innerHTML = `
+  <div class="name-background" data-bs-toggle="modal" data-bs-target="#heroModal"> <h2> ${heroData.name} </h2> </div>
+  <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${heroData.origin.name}</h5></div>
+  `
+}
 
+var addOnClickListenerToThisCard = function(heroData,hero){
+  hero.addEventListener('click',function(){
+    console.log(heroData);
+    showHeroModal(heroData)
+  })
+}
 
+function showHeroModal(heroData){
+  console.log(heroData);
 
+  // The code below puts data from the card into the modal but I can't figure out 
+  // how to access the rest of the data from the JSON object yet
+  
+
+  document.getElementById("heroModalName").innerText = `${heroData.name}`
+  document.getElementById("heroModalContent").innerText = `${heroData.gender}`
+}
 
 /**
  * Get first appearance and add it to the hero card.
@@ -142,17 +162,3 @@ var updateNextPage = function(json){
 var loadMoreHeros = function(){
   getHeroes(nextPageToLoad)
 }
-
-function showHeroModal(json){
-  console.log(json);
-
-  // The code below puts data from the card into the modal but I can't figure out 
-  // how to access the rest of the data from the JSON object yet
-  
-  var name = json.path[0].innerText;
-  var content = json.path[2].innerText;
-  document.getElementById("heroModalName").innerText = `${name}`
-  document.getElementById("heroModalContent").innerText = `${content}`
-}
-
-document.getElementById("hero_holder").addEventListener("click", showHeroModal);
