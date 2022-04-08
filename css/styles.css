@@ -141,3 +141,19 @@ h5{
     height: 300px;
     box-shadow: 0px 2px 4px 0 var(--light-black) ;
 }
+
+.form-check-label{
+color: white;
+font-weight: 500;
+font-size:small;
+}
+.form-check-input{
+color: #000000;
+background-color: white;
+}
+
+.form-check-input:checked{
+    background-color: var(--light-green);
+    border: 2px black;
+
+}

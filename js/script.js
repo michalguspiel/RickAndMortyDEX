@@ -12,13 +12,42 @@ var isContentLoaded = false
 var isSplashScreenDisplayed = true
 var isThereMoreHeroesToLoad = false
 
+var filterAlive = false
+var filterDead = false
+var filterUnknown = false
+
+aliveCheckBox.addEventListener('change', function(){
+  filterAlive = !this.checked; 
+  console.log("filter alive:" + filterAlive)
+  refreshHeroHolder();
+});
+
+deadCheckBox.addEventListener('change', function(){
+  filterDead = !this.checked; 
+  console.log("filter dead:" + filterDead)
+  refreshHeroHolder();
+});
+unknownCheckBox.addEventListener('change', function(){
+  filterUnknown = !this.checked; 
+  console.log("filter unknown:" + filterUnknown)
+  refreshHeroHolder();
+});
+
+
 /**
  * Gets initial heroes from the API 
  * Starts timer for splash screen on the page load.
+ * Checks all the checkboxes
  * */ 
 var onLoad = function(){
-  getHeroes(charactersUrl)
-  setTimeout(splashScreenTimeOut,1200)
+  getHeroes(charactersUrl);
+  setTimeout(splashScreenTimeOut,1200);
+  checkCheckboxes();
+}
+var checkCheckboxes = function(){
+  aliveCheckBox.checked = true;
+  deadCheckBox.checked = true;
+  unknownCheckBox.checked = true;
 }
 /**
  * Function called when the timer for splash screen has ended,
@@ -45,13 +74,17 @@ window.onscroll = function(event){
   }
 }
 
-/**Listen to the change of value in searchbar */
-searchToolbar.addEventListener('keyup',function(){
+var refreshHeroHolder = function(){
 searchedPhrase = searchToolbar.value;
 holder.innerHTML = '' //  restart holder
 isThereMoreHeroesToLoad = false // no more heroes to load at this point -> this get changed if there's an update to 'nextPageToLoad'
 if(searchedPhrase.value != '') getSearchedResults(searchedPhrase); // if there's phrase to search use it
 else getHeroes(charactersUrl); // otherwise get basic characters
+}
+
+/**Listen to the change of value in searchbar */
+searchToolbar.addEventListener('keyup',function(){
+refreshHeroHolder()
 })
 
 var getSearchedResults = function(phrase){
