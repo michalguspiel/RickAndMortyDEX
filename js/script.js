@@ -20,6 +20,7 @@ var xmlhttp = new XMLHttpRequest();
 var isSplashScreenTimerGone = false
 var isContentLoaded = false
 var isSplashScreenDisplayed = true
+var isThereMoreHeroesToLoad = false
 
 /**
  * Gets initial heroes from the API 
@@ -50,12 +51,20 @@ function removeSplashScreen(){
 loadMoreBtn.addEventListener('click',function(){
   loadMoreHeros()
 })
+/** When bottom of the page is reached, load more characters */
+
+window.onscroll = function(event){
+  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 30){
+    if(isThereMoreHeroesToLoad)loadMoreHeros()
+  }
+}
+
 
 /**Listen to the change of value in searchbar */
 searchToolbar.addEventListener('keyup',function(){
 searchedPhrase = searchToolbar.value;
 holder.innerHTML = '' //  restart holder
-loadMoreBtn.style.visibility = 'hidden';
+isThereMoreHeroesToLoad = false // no more heroes to load at this point -> this get changed if there's an update to 'nextPageToLoad'
 if(searchedPhrase.value != '') getSearchedResults(searchedPhrase); // if there's phrase to search use it
 else getHeroes(charactersUrl); // otherwise get basic characters
 })
@@ -113,7 +122,6 @@ var drawCard = function(heroData,hero){
 
 var addOnClickListenerToThisCard = function(heroData,hero){
   hero.addEventListener('click',function(){
-    // console.log(heroData);
     showHeroModal(heroData)
   })
 }
@@ -175,10 +183,9 @@ var getFirstAppearance = function(url,hero){
  * Updates the variable which holds the next page to load
  */
 var updateNextPage = function(json){
-  console.log("Next page: "+json.info.next)
   var nextPage = json.info.next
   nextPageToLoad = nextPage
-  if(json.info.next != null)loadMoreBtn.style.visibility = 'visible'
+  if(json.info.next != null)isThereMoreHeroesToLoad = true
 }
 
 /** Loads more characters to the page*/
