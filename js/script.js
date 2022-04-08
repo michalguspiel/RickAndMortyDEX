@@ -1,16 +1,6 @@
-console.log("HELLO WORLD");
-
-var charactersUrl = "https://rickandmortyapi.com/api/character"
 var nextPageToLoad =  "https://rickandmortyapi.com/api/character/?page=2"
-
-var splashScreen = document.getElementById('splash');
-var loadMoreBtn = document.getElementById('load-more-btn');
-var searchToolbar = document.getElementById('search');
 var searchedPhrase = '';
-var holder = document.getElementById("hero_holder");
 var xmlhttp = new XMLHttpRequest();
-
-
 /**
  * Theese are two flags regarding splash screen.
  * The intended behaviour is that splash screen should disappear only if content is loaded but not earlier than 1.2 seconds
@@ -47,18 +37,13 @@ function removeSplashScreen(){
   isSplashScreenDisplayed = false
 }
 
-/**listen to load more character button */
-loadMoreBtn.addEventListener('click',function(){
-  loadMoreHeros()
-})
-/** When bottom of the page is reached, load more characters */
 
+/** When almost bottom of the page is reached, load more characters. Slack defined by 'reachBottomSlack' */
 window.onscroll = function(event){
-  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 30){
+  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - reachBottomSlack){
     if(isThereMoreHeroesToLoad)loadMoreHeros()
   }
 }
-
 
 /**Listen to the change of value in searchbar */
 searchToolbar.addEventListener('keyup',function(){
@@ -92,25 +77,26 @@ xmlhttp.onreadystatechange = function(){
         var json = JSON.parse(data)
        updateNextPage(json)
         var results = json.results
-        console.log(results.length)
         for (i = 0; i < results.length; i++){
             var heroData = results[i]
             var hero = document.createElement('div');
-            hero.id = "hero"+heroData.id;
-            hero.className += 'hero-card col';
-            hero.setAttribute("data-bs-toggle", "modal");
-            hero.setAttribute("data-bs-target", "#heroModal");
+            modifyHeroElement();
             heroLocation = getFirstAppearance(heroData.episode[0],hero)
             drawCard(heroData,hero)
-           
             addOnClickListenerToThisCard(heroData,hero)
             holder.append(hero);
         }
     }
+
+  function modifyHeroElement() {
+    hero.id = "hero" + heroData.id;
+    hero.className += 'hero-card col';
+    hero.setAttribute("data-bs-toggle", "modal");
+    hero.setAttribute("data-bs-target", "#heroModal");
+  }
 }
 
-// data-bs-toggle="modal" data-bs-target="#heroModal"
-
+//Function which draws each hero card.
 var drawCard = function(heroData,hero){
   hero.innerHTML = `
   <div class="name-background"> <h2> ${heroData.name} </h2> </div>
@@ -119,7 +105,7 @@ var drawCard = function(heroData,hero){
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
   `
 }
-
+//Function which adds click listener to each card.
 var addOnClickListenerToThisCard = function(heroData,hero){
   hero.addEventListener('click',function(){
     showHeroModal(heroData)
@@ -159,10 +145,8 @@ function showHeroModal(heroData){
 
 /**
  * Get first appearance and add it to the hero card.
- * 
 */
 var getFirstAppearance = function(url,hero){
-  console.log("Tryin to get location")
   var xhr = new XMLHttpRequest;
   xhr.open("GET",url,true);
   xhr.send();
