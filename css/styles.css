@@ -155,5 +155,18 @@ background-color: white;
 .form-check-input:checked{
     background-color: var(--light-green);
     border: 2px black;
+}
 
+.status-dropdown-toggle{
+    min-width : 170px;
+}
+
+.search{
+    min-width: 350px;
+}
+
+.navbar-attached {
+    position: fixed;
+    top: 0px;
+    width: 100%;
 }

@@ -74,8 +74,26 @@ function removeSplashScreen(){
 }
 
 
-/** When almost bottom of the page is reached, load more characters. Slack defined by 'reachBottomSlack' */
+
+
+/**When user scroll down, hide the navbar
+ * When user scroll up, show navbar
+ * 
+ * /** When almost bottom of the page is reached, load more characters. Slack defined by 'reachBottomSlack'
+*/
+
+let oldValue = 0
+let newValue = 0
 window.onscroll = function(event){
+  var navBar = document.getElementById('my-navbar');
+  newValue = window.pageYOffset;
+  if (oldValue < newValue) {
+    navBar.classList.remove("navbar-attached")
+  } else if (oldValue > newValue) {
+    navBar.classList.add("navbar-attached")
+  }
+  oldValue = newValue;
+
   if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - reachBottomSlack){
     if(isThereMoreHeroesToLoad)loadMoreHeros()
   }
