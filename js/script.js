@@ -85,7 +85,7 @@ var refreshHeroHolder = function(){
 searchedPhrase = searchToolbar.value;
 holder.innerHTML = '' //  restart holder
 isThereMoreHeroesToLoad = false // no more heroes to load at this point -> this get changed if there's an update to 'nextPageToLoad'
-if(searchedPhrase.value != '') getHeroes(charactersUrl,searchedPhrase,false); // if there's phrase to search use it
+if(searchedPhrase != '') getHeroes(charactersUrl,searchedPhrase,false); // if there's phrase to search use it
 else getHeroes(charactersUrl,null,false); // otherwise get basic characters
 }
 
@@ -95,30 +95,36 @@ refreshHeroHolder()
 })
 
 /**
- * Building the proper query 
+ * If the query is next page or there is not search phrase and status enum equals ALL 
+ * Send url request and return function
+ * Otherwise:
+ * Build the proper query 
  * And then sending request to the API
 */
 var getHeroes = function(url,searchedPhrase,isNextPage){
-  if(isNextPage){
-    xmlhttp.open("GET",url,true);
-    xmlhttp.send();
+  if(isNextPage || (searchedPhrase == null && filterStatus == StatusEnum.ALL)){
+    sendRequest(url)
     return;
   }
-  if(searchedPhrase != null){
-    url = "https://rickandmortyapi.com/api/character/?name=" + searchedPhrase
-      if(filterStatus != StatusEnum.ALL){
-        url = url + '&status=' + filterStatus
-      }
+  url = buildUrlString(url,searchedPhrase)
+  sendRequest(url);
+}
+
+/** BUILDS PROPER URL STRING QUERY :) */
+var buildUrlString = function(url,searchedPhrase){
+  if(searchedPhrase == null) searchedPhrase = '';
+  url = "https://rickandmortyapi.com/api/character/?name=" + searchedPhrase
+  if(filterStatus != StatusEnum.ALL){
+     url = url + '&status=' + filterStatus
   }
-  else{
-    if(filterStatus != StatusEnum.ALL){
-      url + '/?status=' + filterStatus
-    }
-  }
-  console.log('query: ' + url);
+  return url;
+};
+
+var sendRequest = function(url){
   xmlhttp.open("GET",url,true);
   xmlhttp.send();
 }
+
 /**
  * Reacting to the response from the API
 */
