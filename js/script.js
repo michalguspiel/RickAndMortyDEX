@@ -102,7 +102,7 @@ refreshHeroHolder()
  * And then sending request to the API
 */
 var getHeroes = function(url,searchedPhrase,isNextPage){
-  if(isNextPage || (searchedPhrase == null && filterStatus == StatusEnum.ALL)){
+  if((isNextPage) || (searchedPhrase == null && filterStatus == StatusEnum.ALL)){
     sendRequest(url)
     return;
   }
@@ -121,6 +121,7 @@ var buildUrlString = function(url,searchedPhrase){
 };
 
 var sendRequest = function(url){
+  console.log("Query:" + url)
   xmlhttp.open("GET",url,true);
   xmlhttp.send();
 }
@@ -233,5 +234,6 @@ var updateNextPage = function(json){
 
 /** Loads more characters to the page*/
 var loadMoreHeros = function(){
-  getHeroes(nextPageToLoad)
+  console.log("Load more heroes, Next page to load: " + nextPageToLoad)
+  getHeroes(nextPageToLoad,null,true)
 }
