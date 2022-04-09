@@ -34,24 +34,17 @@
           <div class="col-md-6">
               <div class="search"> <i class="fa fa-search"></i> <input id="search" type="text" class="form-control" placeholder="Looking for someone in particular?"></div>
           </div>
-          <div class="col-md-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="alive-check">
-                <label class="form-check-label" for="defaultCheck1">
-                  Alive characters
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="dead-check">
-                <label class="form-check-label" for="defaultCheck1">
-                  Dead characters
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="unknown-check">
-                <label class="form-check-label" for="defaultCheck1">
-                  Unknown status
-                </label>
+          <div class="col-md-2"> 
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="status-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Show all
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <li><button class="dropdown-item" type="button" id="show-all-button">All</button></li>
+                  <li><button class="dropdown-item" type="button" id="alive-button">Alive</button></li>
+                  <li><button class="dropdown-item" type="button" id="dead-button">Dead</button></li>
+                  <li><button class="dropdown-item" type="button" id="unknown-button">Unknown</button></li>
+                </ul>
               </div>
           </div>
 

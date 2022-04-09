@@ -12,27 +12,7 @@ var isContentLoaded = false
 var isSplashScreenDisplayed = true
 var isThereMoreHeroesToLoad = false
 
-var filterAlive = false
-var filterDead = false
-var filterUnknown = false
-
-aliveCheckBox.addEventListener('change', function(){
-  filterAlive = !this.checked; 
-  console.log("filter alive:" + filterAlive)
-  refreshHeroHolder();
-});
-
-deadCheckBox.addEventListener('change', function(){
-  filterDead = !this.checked; 
-  console.log("filter dead:" + filterDead)
-  refreshHeroHolder();
-});
-unknownCheckBox.addEventListener('change', function(){
-  filterUnknown = !this.checked; 
-  console.log("filter unknown:" + filterUnknown)
-  refreshHeroHolder();
-});
-
+var filterStatus = StatusEnum.ALL
 
 /**
  * Gets initial heroes from the API 
@@ -42,13 +22,40 @@ unknownCheckBox.addEventListener('change', function(){
 var onLoad = function(){
   getHeroes(charactersUrl);
   setTimeout(splashScreenTimeOut,1200);
-  checkCheckboxes();
 }
-var checkCheckboxes = function(){
-  aliveCheckBox.checked = true;
-  deadCheckBox.checked = true;
-  unknownCheckBox.checked = true;
+
+/**
+ * Dropdown button listeners,
+ * Change text of button,
+ * Change filterStatus variable
+*/
+document.body.addEventListener('click',function(e){
+var target = e.target;
+switch(target){
+  case aliveButton:
+    statusDropdown.innerHTML = "Show alive"
+    filterStatus = StatusEnum.ALIVE
+    refreshHeroHolder();
+    break;
+  case deadButton:
+    statusDropdown.innerHTML = "Show dead"
+    filterStatus = StatusEnum.DEAD
+    refreshHeroHolder();
+    break;
+  case unknownButton:
+    statusDropdown.innerHTML = "Show unknown"
+    filterStatus = StatusEnum.UNKNOWN
+    refreshHeroHolder();
+    break;
+  case allButton:
+    statusDropdown.innerHTML = "Show all"
+    filterStatus = StatusEnum.ALL
+    refreshHeroHolder();
+    break;
 }
+})
+
+
 /**
  * Function called when the timer for splash screen has ended,
  * if the flag for loaded content is already changed for true it will remove splash screen otherwise won't
@@ -78,8 +85,8 @@ var refreshHeroHolder = function(){
 searchedPhrase = searchToolbar.value;
 holder.innerHTML = '' //  restart holder
 isThereMoreHeroesToLoad = false // no more heroes to load at this point -> this get changed if there's an update to 'nextPageToLoad'
-if(searchedPhrase.value != '') getSearchedResults(searchedPhrase); // if there's phrase to search use it
-else getHeroes(charactersUrl); // otherwise get basic characters
+if(searchedPhrase.value != '') getHeroes(charactersUrl,searchedPhrase,false); // if there's phrase to search use it
+else getHeroes(charactersUrl,null,false); // otherwise get basic characters
 }
 
 /**Listen to the change of value in searchbar */
@@ -87,15 +94,28 @@ searchToolbar.addEventListener('keyup',function(){
 refreshHeroHolder()
 })
 
-var getSearchedResults = function(phrase){
- var url = "https://rickandmortyapi.com/api/character/?name=" + phrase
-  getHeroes(url)
-}
-
 /**
- * Sending request to the API
+ * Building the proper query 
+ * And then sending request to the API
 */
-var getHeroes = function(url){
+var getHeroes = function(url,searchedPhrase,isNextPage){
+  if(isNextPage){
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send();
+    return;
+  }
+  if(searchedPhrase != null){
+    url = "https://rickandmortyapi.com/api/character/?name=" + searchedPhrase
+      if(filterStatus != StatusEnum.ALL){
+        url = url + '&status=' + filterStatus
+      }
+  }
+  else{
+    if(filterStatus != StatusEnum.ALL){
+      url + '/?status=' + filterStatus
+    }
+  }
+  console.log('query: ' + url);
   xmlhttp.open("GET",url,true);
   xmlhttp.send();
 }
