@@ -11,6 +11,7 @@
 
 body{
     background-color: var(--background-color);
+     /* Add the blur effect */
 }
 
 #splash{
@@ -92,7 +93,9 @@ h5{
 }
 
 #hero_holder{
-    margin: 10px 40px;
+    margin: 100px 40px 10 40px;
+    padding-top :60px;
+    position : static;
 }
 
 .hero-card{
@@ -165,8 +168,24 @@ background-color: white;
     min-width: 350px;
 }
 
+@keyframes navbar-appear{
+    0% { top: -50px;}
+    100% { top: 0px;}
+}
+
+@keyframes navbar-disappear{
+    0% {top : 0px;}
+    100% { top : -50px;}
+}
+
 .navbar-attached {
     position: fixed;
     top: 0px;
     width: 100%;
+    opacity: 0;
+    transition: all 0.4s ease-in;
+}
+
+.navbar-show{
+    opacity: 1;
 }
