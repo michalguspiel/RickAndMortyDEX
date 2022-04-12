@@ -15,3 +15,4 @@ const allButton = document.getElementById('show-all-button');
 const aliveButton = document.getElementById('alive-button');
 const deadButton = document.getElementById('dead-button');
 const unknownButton = document.getElementById('unknown-button');
+const battleGameButton = document.getElementById('choosePlayerButton');

@@ -193,16 +193,6 @@ var addOnClickListenerToThisCard = function(heroData,hero){
 function showHeroModal(heroData){
   console.log(heroData);
 
-  // name
-  // status
-  // species
-  // type 
-  // gender 
-  // origin.name
-  // location.name
-  // image
-  // episodes
-
   // The code below puts data from the card into the modal 
   var totalNumberOfEpisodes = heroData.episode.length;
 
@@ -240,6 +230,48 @@ var getFirstAppearance = function(url,hero){
     }
   }
 }
+
+var addOnClickListenerToThisCard = function(heroData,hero){
+  hero.addEventListener('click',function(){
+    showHeroModal(heroData)
+  })
+}
+
+
+var battleGameFunction = function(heroData){  
+  console.log(heroData);
+
+  let playerOne = document.getElementById('playerOne');
+  let playerTwo = document.getElementById('playerTwo');
+  let versus = document.getElementById('versus'); 
+  let myModalEl = document.getElementById('heroModal');
+  let modal = bootstrap.Modal.getInstance(myModalEl);
+
+  function scrollToTop() {
+    window.scroll({top: 0, left: 0, behavior: 'smooth'});
+  }
+
+  playerOne.innerHTML = `
+  <div class="name-background"> <h2> ${heroData.name} </h2> </div>
+  <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+  `
+
+  versus.innerText = 'VERSUS'
+
+  playerTwo.innerHTML = `
+  <div class="name-background"> <h2> ${heroData.name} </h2> </div>
+  <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+  `
+  scrollToTop();
+  modal.hide();
+}
+
+// initiates the battle game function
+battleGameButton.addEventListener('click', battleGameFunction);
 
 /**
  * Updates the variable which holds the next page to load
