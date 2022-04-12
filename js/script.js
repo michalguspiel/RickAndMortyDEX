@@ -240,9 +240,16 @@ var addOnClickListenerToThisCard = function(heroData,hero){
 
 var battleGameFunction = function(heroData){  
   console.log(heroData);
+  
+  let playerOne = 'Player One';
+  let players = [1, 2, 3, 4, 5]
+  let randomPlayer = Math.floor(Math.random() * players.length);
+  let playerTwo = players.splice(randomPlayer, 1)[0];
+  console.log(players);
+  console.log(playerTwo);
 
-  let playerOne = document.getElementById('playerOne');
-  let playerTwo = document.getElementById('playerTwo');
+  let playerOneDiv = document.getElementById('playerOne');
+  let playerTwoDiv = document.getElementById('playerTwo');
   let versus = document.getElementById('versus'); 
   let myModalEl = document.getElementById('heroModal');
   let modal = bootstrap.Modal.getInstance(myModalEl);
@@ -251,8 +258,8 @@ var battleGameFunction = function(heroData){
     window.scroll({top: 0, left: 0, behavior: 'smooth'});
   }
 
-  playerOne.innerHTML = `
-  <div class="name-background"> <h2> ${heroData.name} </h2> </div>
+  playerOneDiv.innerHTML = `
+  <div class="name-background"> <h2> ${playerOne} </h2> </div>
   <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
@@ -260,8 +267,8 @@ var battleGameFunction = function(heroData){
 
   versus.innerText = 'VERSUS'
 
-  playerTwo.innerHTML = `
-  <div class="name-background"> <h2> ${heroData.name} </h2> </div>
+  playerTwoDiv.innerHTML = `
+  <div class="name-background"> <h2> ${playerTwo} </h2> </div>
   <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
