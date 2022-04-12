@@ -256,185 +256,174 @@ var battleGameFunction = function(heroData, results){
   
   switch(playerOne.name[0]) {
     case "A":
-      playerOneHp = 1
+      playerOneHp = 3
       break;
     case "B":
-      playerOneHp = 2
+      playerOneHp = 4
       break;
     case "C":
-      playerOneHp = 3
+      playerOneHp = 5
       break;
     case "D":
       playerOneHp = 4
       break;
     case "E":
-      playerOneHp = 5
-      break;
-    case "F":
-      playerOneHp = 6
-      break;
-    case "G":
-      playerOneHp = 7
-      break;
-    case "H":
-      playerOneHp = 8
-      break;
-    case "I":
-      playerOneHp = 9
-      break;
-    case "J":
-      playerOneHp = 10
-      break;
-    case "K":
-      playerOneHp = 11
-      break;
-    case "L":
-      playerOneHp = 12
-      break;
-    case "M":
-      playerOneHp = 13
-      break;
-    case "N":
-      playerOneHp = 1
-      break;
-    case "O":
-      playerOneHp = 2
-      break;
-    case "P":
       playerOneHp = 3
       break;
-    case "Q":
+    case "F":
       playerOneHp = 4
       break;
-    case "R":
+    case "G":
       playerOneHp = 5
       break;
+    case "H":
+      playerOneHp = 4
+      break;
+    case "I":
+      playerOneHp = 3
+      break;
+    case "J":
+      playerOneHp = 4
+      break;
+    case "K":
+      playerOneHp = 5
+      break;
+    case "L":
+      playerOneHp = 4
+      break;
+    case "M":
+      playerOneHp = 3
+      break;
+    case "N":
+      playerOneHp = 4
+      break;
+    case "O":
+      playerOneHp = 5
+      break;
+    case "P":
+      playerOneHp = 4
+      break;
+    case "Q":
+      playerOneHp = 3
+      break;
+    case "R":
+      playerOneHp = 4
+      break;
     case "S":
-      playerOneHp = 6
+      playerOneHp = 5
       break;
     case "T":
-      playerOneHp = 7
+      playerOneHp = 4
       break;
     case "U":
-      playerOneHp = 8
+      playerOneHp = 3
       break;
     case "V":
-      playerOneHp = 9
+      playerOneHp = 4
       break;
     case "W":
-      playerOneHp = 10
+      playerOneHp = 5
       break;
     case "X":
-      playerOneHp = 11
+      playerOneHp = 4
       break;
     case "Y":
-      playerOneHp = 12
+      playerOneHp = 3
       break;
     case "Z":
-      playerOneHp = 13
+      playerOneHp = 4
       break;
     default:
-      playerOneHp = 7
+      playerOneHp = 3
   }
   
   let playerTwoHp = 0;
 
   switch(playerTwo.name[0]) {
     case "A":
-      playerOneHp = 1
+      playerTwoHp = 3
       break;
     case "B":
-      playerOneHp = 2
+      playerTwoHp = 4
       break;
     case "C":
-      playerOneHp = 3
+      playerTwoHp = 5
       break;
     case "D":
-      playerOneHp = 4
+      playerTwoHp = 4
       break;
     case "E":
-      playerOneHp = 5
+      playerTwoHp = 3
       break;
     case "F":
-      playerOneHp = 6
+      playerTwoHp = 4
       break;
     case "G":
-      playerOneHp = 7
+      playerTwoHp = 5
       break;
     case "H":
-      playerOneHp = 8
+      playerTwoHp = 4
       break;
     case "I":
-      playerOneHp = 9
+      playerTwoHp = 3
       break;
     case "J":
-      playerOneHp = 10
+      playerTwoHp = 4
       break;
     case "K":
-      playerOneHp = 11
+      playerTwoHp = 5
       break;
     case "L":
-      playerOneHp = 12
+      playerTwoHp = 4
       break;
     case "M":
-      playerOneHp = 13
+      playerTwoHp = 3
       break;
     case "N":
-      playerOneHp = 1
+      playerTwoHp = 4
       break;
     case "O":
-      playerOneHp = 2
+      playerTwoHp = 5
       break;
     case "P":
-      playerOneHp = 3
+      playerTwoHp = 4
       break;
     case "Q":
-      playerOneHp = 4
+      playerTwoHp = 3
       break;
     case "R":
-      playerOneHp = 5
+      playerTwoHp = 4
       break;
     case "S":
-      playerOneHp = 6
+      playerTwoHp = 5
       break;
     case "T":
-      playerOneHp = 7
+      playerTwoHp = 4
       break;
     case "U":
-      playerOneHp = 8
+      playerTwoHp = 3
       break;
     case "V":
-      playerOneHp = 9
+      playerTwoHp = 4
       break;
     case "W":
-      playerOneHp = 10
+      playerTwoHp = 5
       break;
     case "X":
-      playerOneHp = 11
+      playerTwoHp = 4
       break;
     case "Y":
-      playerOneHp = 12
+      playerTwoHp = 3
       break;
     case "Z":
-      playerOneHp = 13
+      playerTwoHp = 4
       break;
     default:
-      playerOneHp = 7
+      playerTwoHp = 3
   }
 
-  let playerOneStrength = 0;
-  let playerTwoStrength = 0;
-
-  if (playerOne.name === "Jerry Smith") {
-    playerOneStrength = 0;
-  } else if (playerTwo.name === "Jerry Smith") {
-    playerTwoStrength = 0;
-  } else {
-    playerOneStrength = playerOneHp * playerOne.episode.length;
-    playerTwoStrength = playerTwoHp * playerTwo.episode.length;
-  }
-  // let playerOneStrength = playerOneHp * playerOne.episode.length;
-  // let playerTwoStrength = playerTwoHp * playerTwo.episode.length;
+  let playerOneStrength = playerOneHp * playerOne.episode.length;
+  let playerTwoStrength = playerTwoHp * playerTwo.episode.length;
 
   function scrollToTop() {
     window.scroll({top: 0, left: 0, behavior: 'smooth'});
@@ -446,7 +435,7 @@ var battleGameFunction = function(heroData, results){
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerOne.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerOne.status}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${playerOne.origin.name}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerOneStrength}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${playerOneStrength}</h5></div>
   `
 
   versus.innerText = 'VERSUS'
@@ -457,12 +446,10 @@ var battleGameFunction = function(heroData, results){
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerTwo.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerTwo.status}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${playerTwo.origin.name}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerTwoStrength}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${playerTwoStrength}</h5></div>
   `
 
   
-  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerOneStrength}</h5></div>
-  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerTwoStrength}</h5></div>
 
   fightButton.setAttribute("class", "btn btn-danger");
   fightButton.innerHTML = 'FIGHT';
@@ -477,7 +464,7 @@ var battleGameFunction = function(heroData, results){
     } else if (playerOneStrength < playerTwoStrength) {
       twoWinner.innerText = 'WINNER';
       twoWinner.setAttribute("class", "fs-1 text-success")
-    } else if (playerOneStrength === playerTwoStrength) {
+    } else {
       oneWinner.innerText = "IT'S A DRAW"
       oneWinner.setAttribute("class", "fs-1 text-danger")
       twoWinner.innerText = "IT'S A DRAW";
