@@ -256,170 +256,170 @@ var battleGameFunction = function(heroData, results){
   
   switch(playerOne.name[0]) {
     case "A":
-      playerOneHp = 5
+      playerOneHp = 1
       break;
     case "B":
-      playerOneHp = 5
+      playerOneHp = 2
       break;
     case "C":
-      playerOneHp = 5
+      playerOneHp = 3
       break;
     case "D":
-      playerOneHp = 5
+      playerOneHp = 4
       break;
     case "E":
       playerOneHp = 5
       break;
     case "F":
-      playerOneHp = 5
+      playerOneHp = 6
       break;
     case "G":
-      playerOneHp = 5
+      playerOneHp = 7
       break;
     case "H":
-      playerOneHp = 5
+      playerOneHp = 8
       break;
     case "I":
-      playerOneHp = 5
+      playerOneHp = 9
       break;
     case "J":
-      playerOneHp = 5
+      playerOneHp = 10
       break;
     case "K":
-      playerOneHp = 5
+      playerOneHp = 11
       break;
     case "L":
-      playerOneHp = 5
+      playerOneHp = 12
       break;
     case "M":
-      playerOneHp = 5
+      playerOneHp = 13
       break;
     case "N":
-      playerOneHp = 5
+      playerOneHp = 1
       break;
     case "O":
-      playerOneHp = 5
+      playerOneHp = 2
       break;
     case "P":
-      playerOneHp = 5
+      playerOneHp = 3
       break;
     case "Q":
-      playerOneHp = 5
+      playerOneHp = 4
       break;
     case "R":
       playerOneHp = 5
       break;
     case "S":
-      playerOneHp = 5
+      playerOneHp = 6
       break;
     case "T":
-      playerOneHp = 5
+      playerOneHp = 7
       break;
     case "U":
-      playerOneHp = 5
+      playerOneHp = 8
       break;
     case "V":
-      playerOneHp = 5
+      playerOneHp = 9
       break;
     case "W":
-      playerOneHp = 5
+      playerOneHp = 10
       break;
     case "X":
-      playerOneHp = 5
+      playerOneHp = 11
       break;
     case "Y":
-      playerOneHp = 5
+      playerOneHp = 12
       break;
     case "Z":
-      playerOneHp = 5
+      playerOneHp = 13
       break;
     default:
-      playerOneHp = 3
+      playerOneHp = 7
   }
   
   let playerTwoHp = 0;
 
   switch(playerTwo.name[0]) {
     case "A":
-      playerTwoHp = 5
+      playerOneHp = 1
       break;
     case "B":
-      playerTwoHp = 5
+      playerOneHp = 2
       break;
     case "C":
-      playerTwoHp = 5
+      playerOneHp = 3
       break;
     case "D":
-      playerTwoHp = 5
+      playerOneHp = 4
       break;
     case "E":
-      playerTwoHp = 5
+      playerOneHp = 5
       break;
     case "F":
-      playerTwoHp = 5
+      playerOneHp = 6
       break;
     case "G":
-      playerTwoHp = 5
+      playerOneHp = 7
       break;
     case "H":
-      playerTwoHp = 5
+      playerOneHp = 8
       break;
     case "I":
-      playerTwoHp = 5
+      playerOneHp = 9
       break;
     case "J":
-      playerTwoHp = 5
+      playerOneHp = 10
       break;
     case "K":
-      playerTwoHp = 5
+      playerOneHp = 11
       break;
     case "L":
-      playerTwoHp = 5
+      playerOneHp = 12
       break;
     case "M":
-      playerTwoHp = 5
+      playerOneHp = 13
       break;
     case "N":
-      playerTwoHp = 5
+      playerOneHp = 1
       break;
     case "O":
-      playerTwoHp = 5
+      playerOneHp = 2
       break;
     case "P":
-      playerTwoHp = 5
+      playerOneHp = 3
       break;
     case "Q":
-      playerTwoHp = 5
+      playerOneHp = 4
       break;
     case "R":
-      playerTwoHp = 5
+      playerOneHp = 5
       break;
     case "S":
-      playerTwoHp = 5
+      playerOneHp = 6
       break;
     case "T":
-      playerTwoHp = 5
+      playerOneHp = 7
       break;
     case "U":
-      playerTwoHp = 5
+      playerOneHp = 8
       break;
     case "V":
-      playerTwoHp = 5
+      playerOneHp = 9
       break;
     case "W":
-      playerTwoHp = 5
+      playerOneHp = 10
       break;
     case "X":
-      playerTwoHp = 5
+      playerOneHp = 11
       break;
     case "Y":
-      playerTwoHp = 5
+      playerOneHp = 12
       break;
     case "Z":
-      playerTwoHp = 5
+      playerOneHp = 13
       break;
     default:
-      playerTwoHp = 3
+      playerOneHp = 7
   }
 
   let playerOneStrength = 0;
