@@ -210,10 +210,6 @@ function showHeroModal(heroData){
   } else {
     document.getElementById("heroModalTotalEpisodes").innerText = `Appears in: ${totalNumberOfEpisodes} episodes`
   }
-  // const battleButton = document.createElement("button");
-  // battleButton.innerText = "Choose Player One";
-  // battleButton.setAttribute("id", "choosePlayerButton");
-  // document.getElementById("heroModal").appendChild(battleButton);
 }
 
 /**
@@ -242,52 +238,255 @@ var addOnClickListenerToThisCard = function(heroData,hero){
   })
 }
 
-// console.log(`This is a test for: ${heroData}`);
-
-
-// var battleGameEventListener = function() {
-
-// }
-
-
 var battleGameFunction = function(heroData, results){  
-  console.log(results);
-  console.log(heroData);
+  // console.log(results.length);
+  // console.log(heroData);
   
   let playerOne = heroData;
-  // let players = [1, 2, 3, 4, 5]
   let randomPlayer = Math.floor(Math.random() * results.length);
   let playerTwo = results.splice(randomPlayer, 1)[0];
-  // // console.log(players);
-  // // console.log(playerTwo);
-
   let playerOneDiv = document.getElementById('playerOne');
   let playerTwoDiv = document.getElementById('playerTwo');
   let versus = document.getElementById('versus'); 
+  let fightButton = document.getElementById('fightButton');
   let myModalEl = document.getElementById('heroModal');
   let modal = bootstrap.Modal.getInstance(myModalEl);
+
+  let playerOneHp = 0;
+  
+  switch(playerOne.name[0]) {
+    case "A":
+      playerOneHp = 5
+      break;
+    case "B":
+      playerOneHp = 5
+      break;
+    case "C":
+      playerOneHp = 5
+      break;
+    case "D":
+      playerOneHp = 5
+      break;
+    case "E":
+      playerOneHp = 5
+      break;
+    case "F":
+      playerOneHp = 5
+      break;
+    case "G":
+      playerOneHp = 5
+      break;
+    case "H":
+      playerOneHp = 5
+      break;
+    case "I":
+      playerOneHp = 5
+      break;
+    case "J":
+      playerOneHp = 5
+      break;
+    case "K":
+      playerOneHp = 5
+      break;
+    case "L":
+      playerOneHp = 5
+      break;
+    case "M":
+      playerOneHp = 5
+      break;
+    case "N":
+      playerOneHp = 5
+      break;
+    case "O":
+      playerOneHp = 5
+      break;
+    case "P":
+      playerOneHp = 5
+      break;
+    case "Q":
+      playerOneHp = 5
+      break;
+    case "R":
+      playerOneHp = 5
+      break;
+    case "S":
+      playerOneHp = 5
+      break;
+    case "T":
+      playerOneHp = 5
+      break;
+    case "U":
+      playerOneHp = 5
+      break;
+    case "V":
+      playerOneHp = 5
+      break;
+    case "W":
+      playerOneHp = 5
+      break;
+    case "X":
+      playerOneHp = 5
+      break;
+    case "Y":
+      playerOneHp = 5
+      break;
+    case "Z":
+      playerOneHp = 5
+      break;
+    default:
+      playerOneHp = 3
+  }
+  
+  let playerTwoHp = 0;
+
+  switch(playerTwo.name[0]) {
+    case "A":
+      playerTwoHp = 5
+      break;
+    case "B":
+      playerTwoHp = 5
+      break;
+    case "C":
+      playerTwoHp = 5
+      break;
+    case "D":
+      playerTwoHp = 5
+      break;
+    case "E":
+      playerTwoHp = 5
+      break;
+    case "F":
+      playerTwoHp = 5
+      break;
+    case "G":
+      playerTwoHp = 5
+      break;
+    case "H":
+      playerTwoHp = 5
+      break;
+    case "I":
+      playerTwoHp = 5
+      break;
+    case "J":
+      playerTwoHp = 5
+      break;
+    case "K":
+      playerTwoHp = 5
+      break;
+    case "L":
+      playerTwoHp = 5
+      break;
+    case "M":
+      playerTwoHp = 5
+      break;
+    case "N":
+      playerTwoHp = 5
+      break;
+    case "O":
+      playerTwoHp = 5
+      break;
+    case "P":
+      playerTwoHp = 5
+      break;
+    case "Q":
+      playerTwoHp = 5
+      break;
+    case "R":
+      playerTwoHp = 5
+      break;
+    case "S":
+      playerTwoHp = 5
+      break;
+    case "T":
+      playerTwoHp = 5
+      break;
+    case "U":
+      playerTwoHp = 5
+      break;
+    case "V":
+      playerTwoHp = 5
+      break;
+    case "W":
+      playerTwoHp = 5
+      break;
+    case "X":
+      playerTwoHp = 5
+      break;
+    case "Y":
+      playerTwoHp = 5
+      break;
+    case "Z":
+      playerTwoHp = 5
+      break;
+    default:
+      playerTwoHp = 3
+  }
+
+  let playerOneStrength = 0;
+  let playerTwoStrength = 0;
+
+  if (playerOne.name === "Jerry Smith") {
+    playerOneStrength = 0;
+  } else if (playerTwo.name === "Jerry Smith") {
+    playerTwoStrength = 0;
+  } else {
+    playerOneStrength = playerOneHp * playerOne.episode.length;
+    playerTwoStrength = playerTwoHp * playerTwo.episode.length;
+  }
+  // let playerOneStrength = playerOneHp * playerOne.episode.length;
+  // let playerTwoStrength = playerTwoHp * playerTwo.episode.length;
 
   function scrollToTop() {
     window.scroll({top: 0, left: 0, behavior: 'smooth'});
   }
 
   playerOneDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerOne.name} </h2> </div>
+  <div class="name-background"> <h2> ${playerOne.name}</h2> </div>
   <img class="hero-card-pic" src="${playerOne.image}" alt="Character picture" >
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerOne.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerOne.status}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${playerOne.origin.name}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerOneStrength}</h5></div>
   `
 
   versus.innerText = 'VERSUS'
 
   playerTwoDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerTwo.name} </h2> </div>
+  <div class="name-background"> <h2> ${playerTwo.name}</h2> </div>
   <img class="hero-card-pic" src="${playerTwo.image}" alt="Character picture" >
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerTwo.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerTwo.status}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${playerTwo.origin.name}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerTwoStrength}</h5></div>
   `
+
+  
+  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerOneStrength}</h5></div>
+  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+ ${playerTwoStrength}</h5></div>
+
+  fightButton.setAttribute("class", "btn btn-danger");
+  fightButton.innerHTML = 'FIGHT';
+
+  fightButton.addEventListener('click', function() {    
+    let oneWinner = document.getElementById('playerOneWinner');
+    let twoWinner = document.getElementById('playerTwoWinner');
+
+    if(playerOneStrength > playerTwoStrength){
+      oneWinner.innerText = 'WINNER'
+      oneWinner.setAttribute("class", "fs-1 text-success")
+    } else if (playerOneStrength < playerTwoStrength) {
+      twoWinner.innerText = 'WINNER';
+      twoWinner.setAttribute("class", "fs-1 text-success")
+    } else if (playerOneStrength === playerTwoStrength) {
+      oneWinner.innerText = "IT'S A DRAW"
+      oneWinner.setAttribute("class", "fs-1 text-danger")
+      twoWinner.innerText = "IT'S A DRAW";
+      twoWinner.setAttribute("class", "fs-1 text-danger")
+
+    }
+  })
   scrollToTop();
-  // modal.hide();
+  modal.hide();
 }
 
 // initiates the battle game function
