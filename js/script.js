@@ -489,12 +489,14 @@ var battleGameFunction = function(heroData, results){
 
     if(playerOneStrength > playerTwoStrength){
       oneWinner.innerText = 'WINNER'
-      twoWinner.innerText = ''
+      twoWinner.innerText = 'LOSER'
       oneWinner.setAttribute("class", "fs-1 text-success")
+      twoWinner.setAttribute("class", "fs-1 text-danger")
     } else if (playerOneStrength < playerTwoStrength) {
       twoWinner.innerText = 'WINNER';
-      oneWinner.innerText = '';
+      oneWinner.innerText = 'LOSER';
       twoWinner.setAttribute("class", "fs-1 text-success")
+      oneWinner.setAttribute("class", "fs-1 text-danger")
     } else if (playerOneStrength == playerTwoStrength) {
       oneWinner.innerText = "IT'S A DRAW"
       oneWinner.setAttribute("class", "fs-1 text-danger")
