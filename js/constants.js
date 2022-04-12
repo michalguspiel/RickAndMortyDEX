@@ -10,6 +10,8 @@ const splashScreen = document.getElementById('splash');
 const searchToolbar = document.getElementById('search');
 const holder = document.getElementById("hero_holder");
 
+const navBar = document.getElementById('my-navbar');
+
 const statusDropdown = document.getElementById('status-dropdown');
 const allButton = document.getElementById('show-all-button');
 const aliveButton = document.getElementById('alive-button');

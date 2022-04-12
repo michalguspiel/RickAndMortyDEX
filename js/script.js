@@ -85,18 +85,45 @@ function removeSplashScreen(){
 let oldValue = 0
 let newValue = 0
 window.onscroll = function(event){
-  var navBar = document.getElementById('my-navbar');
   newValue = window.pageYOffset;
-  if (oldValue < newValue) {
-    navBar.classList.remove("navbar-attached")
-  } else if (oldValue > newValue) {
-    navBar.classList.add("navbar-attached")
+  if (oldValue < newValue) { // scrolling down
+   hideNavBar();
+  } else if (oldValue > newValue) { // scrolling up
+    showNavBar();
   }
   oldValue = newValue;
-
-  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - reachBottomSlack){
-    if(isThereMoreHeroesToLoad)loadMoreHeros()
+  if(hasUserReachedBottomOfPage() && isThereMoreHeroesToLoad){
+   loadMoreHeros()
   }
+}
+
+var hasUserReachedBottomOfPage = function(){
+  return ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - reachBottomSlack);
+}
+
+var showNavBar = function(){
+  navBar.style.animationName = "navbar-appear"
+  navBar.classList.add("navbar-show");
+  navBar.ontransitionend = null;
+  navBar.ontransitionstart = function(){
+        changeNavBarStatus(false);
+      }
+}
+
+var hideNavBar = function(){
+  navBar.classList.remove("navbar-show");
+  navBar.ontransitionstart = null;
+  navBar.ontransitionend = function(){
+     changeNavBarStatus(true);
+   }
+}
+
+/** This function changes the status of each child in navbar element. */
+var changeNavBarStatus = function(disabled){
+  var nodes = navBar.getElementsByTagName('*');
+  for(var i = 0; i < nodes.length; i++){
+     nodes[i].disabled = disabled;
+}
 }
 
 var refreshHeroHolder = function(){
@@ -427,6 +454,8 @@ var battleGameFunction = function(heroData, results){
 
   function scrollToTop() {
     window.scroll({top: 0, left: 0, behavior: 'smooth'});
+    document.getElementById('playerOneWinner').innerText = '';
+    document.getElementById('playerTwoWinner').innerText = '';
   }
 
   playerOneDiv.innerHTML = `
@@ -460,11 +489,13 @@ var battleGameFunction = function(heroData, results){
 
     if(playerOneStrength > playerTwoStrength){
       oneWinner.innerText = 'WINNER'
+      twoWinner.innerText = ''
       oneWinner.setAttribute("class", "fs-1 text-success")
     } else if (playerOneStrength < playerTwoStrength) {
       twoWinner.innerText = 'WINNER';
+      oneWinner.innerText = '';
       twoWinner.setAttribute("class", "fs-1 text-success")
-    } else {
+    } else if (playerOneStrength == playerTwoStrength) {
       oneWinner.innerText = "IT'S A DRAW"
       oneWinner.setAttribute("class", "fs-1 text-danger")
       twoWinner.innerText = "IT'S A DRAW";
