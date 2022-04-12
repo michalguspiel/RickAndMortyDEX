@@ -163,6 +163,7 @@ xmlhttp.onreadystatechange = function(){
             drawCard(heroData,hero)
             addOnClickListenerToThisCard(heroData,hero)
             holder.append(hero);
+            battleGameFunction(heroData, results);
         }
     }
 
@@ -191,7 +192,7 @@ var addOnClickListenerToThisCard = function(heroData,hero){
 }
 
 function showHeroModal(heroData){
-  console.log(heroData);
+  // console.log(heroData);
 
   // The code below puts data from the card into the modal 
   var totalNumberOfEpisodes = heroData.episode.length;
@@ -209,6 +210,10 @@ function showHeroModal(heroData){
   } else {
     document.getElementById("heroModalTotalEpisodes").innerText = `Appears in: ${totalNumberOfEpisodes} episodes`
   }
+  // const battleButton = document.createElement("button");
+  // battleButton.innerText = "Choose Player One";
+  // battleButton.setAttribute("id", "choosePlayerButton");
+  // document.getElementById("heroModal").appendChild(battleButton);
 }
 
 /**
@@ -237,16 +242,24 @@ var addOnClickListenerToThisCard = function(heroData,hero){
   })
 }
 
+// console.log(`This is a test for: ${heroData}`);
 
-var battleGameFunction = function(heroData){  
+
+// var battleGameEventListener = function() {
+
+// }
+
+
+var battleGameFunction = function(heroData, results){  
+  console.log(results);
   console.log(heroData);
   
-  let playerOne = 'Player One';
-  let players = [1, 2, 3, 4, 5]
-  let randomPlayer = Math.floor(Math.random() * players.length);
-  let playerTwo = players.splice(randomPlayer, 1)[0];
-  console.log(players);
-  console.log(playerTwo);
+  let playerOne = heroData;
+  // let players = [1, 2, 3, 4, 5]
+  let randomPlayer = Math.floor(Math.random() * results.length);
+  let playerTwo = results.splice(randomPlayer, 1)[0];
+  // // console.log(players);
+  // // console.log(playerTwo);
 
   let playerOneDiv = document.getElementById('playerOne');
   let playerTwoDiv = document.getElementById('playerTwo');
@@ -259,22 +272,22 @@ var battleGameFunction = function(heroData){
   }
 
   playerOneDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerOne} </h2> </div>
-  <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
-  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+  <div class="name-background"> <h2> ${playerOne.name} </h2> </div>
+  <img class="hero-card-pic" src="${playerOne.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerOne.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerOne.status}</h5></div>
   `
 
   versus.innerText = 'VERSUS'
 
   playerTwoDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerTwo} </h2> </div>
-  <img class="hero-card-pic" src="${heroData.image}" alt="Character picture" >
-  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${heroData.species}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${heroData.status}</h5></div>
+  <div class="name-background"> <h2> ${playerTwo.name} </h2> </div>
+  <img class="hero-card-pic" src="${playerTwo.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerTwo.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerTwo.status}</h5></div>
   `
   scrollToTop();
-  modal.hide();
+  // modal.hide();
 }
 
 // initiates the battle game function
