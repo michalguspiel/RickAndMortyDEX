@@ -178,22 +178,21 @@ background-color: white;
     100% { top : -50px;}
 }
 
+#versus {
+    font-size: larger;
+    color: red;
+    opacity: 0;
+    transition: all 0.4s ease-in;
+}
+
 .navbar-attached {
     position: fixed;
     top: 0px;
     width: 100%;
-<<<<<<< HEAD
-}
-
-#versus {
-    font-size: larger;
-    color: red;
-=======
     opacity: 0;
     transition: all 0.4s ease-in;
 }
 
 .navbar-show{
     opacity: 1;
->>>>>>> c77272f6df451b0d9c0f8cc82bc61132613e3bd0
 }
