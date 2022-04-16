@@ -5,6 +5,8 @@ const charactersUrl = "https://rickandmortyapi.com/api/character"
 
 const StatusEnum = Object.freeze({ALL:"all", ALIVE:"alive", DEAD:"dead",UNKNOWN:"unknown"});
 
+const numberOfHeroes = 826;
+
 /**HTML ELEMENTS */
 const splashScreen = document.getElementById('splash');
 const searchToolbar = document.getElementById('search');

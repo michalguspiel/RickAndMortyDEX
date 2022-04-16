@@ -266,8 +266,6 @@ var addOnClickListenerToThisCard = function(heroData,hero){
 }
 
 var battleGameFunction = function(heroData, results){  
-  // console.log(results.length);
-  // console.log(heroData);
   
   let playerOne = heroData;
   let randomPlayer = Math.floor(Math.random() * results.length);
@@ -279,175 +277,9 @@ var battleGameFunction = function(heroData, results){
   let myModalEl = document.getElementById('heroModal');
   let modal = bootstrap.Modal.getInstance(myModalEl);
 
-  let playerOneHp = 0;
-  
-  switch(playerOne.name[0]) {
-    case "A":
-      playerOneHp = 3
-      break;
-    case "B":
-      playerOneHp = 4
-      break;
-    case "C":
-      playerOneHp = 5
-      break;
-    case "D":
-      playerOneHp = 4
-      break;
-    case "E":
-      playerOneHp = 3
-      break;
-    case "F":
-      playerOneHp = 4
-      break;
-    case "G":
-      playerOneHp = 5
-      break;
-    case "H":
-      playerOneHp = 4
-      break;
-    case "I":
-      playerOneHp = 3
-      break;
-    case "J":
-      playerOneHp = 4
-      break;
-    case "K":
-      playerOneHp = 5
-      break;
-    case "L":
-      playerOneHp = 4
-      break;
-    case "M":
-      playerOneHp = 3
-      break;
-    case "N":
-      playerOneHp = 4
-      break;
-    case "O":
-      playerOneHp = 5
-      break;
-    case "P":
-      playerOneHp = 4
-      break;
-    case "Q":
-      playerOneHp = 3
-      break;
-    case "R":
-      playerOneHp = 4
-      break;
-    case "S":
-      playerOneHp = 5
-      break;
-    case "T":
-      playerOneHp = 4
-      break;
-    case "U":
-      playerOneHp = 3
-      break;
-    case "V":
-      playerOneHp = 4
-      break;
-    case "W":
-      playerOneHp = 5
-      break;
-    case "X":
-      playerOneHp = 4
-      break;
-    case "Y":
-      playerOneHp = 3
-      break;
-    case "Z":
-      playerOneHp = 4
-      break;
-    default:
-      playerOneHp = 3
-  }
-  
-  let playerTwoHp = 0;
+  let playerOneHp =  setHp(playerOne.name[0]);
+  let playerTwoHp =  setHp(playerTwo.name[0]);  
 
-  switch(playerTwo.name[0]) {
-    case "A":
-      playerTwoHp = 3
-      break;
-    case "B":
-      playerTwoHp = 4
-      break;
-    case "C":
-      playerTwoHp = 5
-      break;
-    case "D":
-      playerTwoHp = 4
-      break;
-    case "E":
-      playerTwoHp = 3
-      break;
-    case "F":
-      playerTwoHp = 4
-      break;
-    case "G":
-      playerTwoHp = 5
-      break;
-    case "H":
-      playerTwoHp = 4
-      break;
-    case "I":
-      playerTwoHp = 3
-      break;
-    case "J":
-      playerTwoHp = 4
-      break;
-    case "K":
-      playerTwoHp = 5
-      break;
-    case "L":
-      playerTwoHp = 4
-      break;
-    case "M":
-      playerTwoHp = 3
-      break;
-    case "N":
-      playerTwoHp = 4
-      break;
-    case "O":
-      playerTwoHp = 5
-      break;
-    case "P":
-      playerTwoHp = 4
-      break;
-    case "Q":
-      playerTwoHp = 3
-      break;
-    case "R":
-      playerTwoHp = 4
-      break;
-    case "S":
-      playerTwoHp = 5
-      break;
-    case "T":
-      playerTwoHp = 4
-      break;
-    case "U":
-      playerTwoHp = 3
-      break;
-    case "V":
-      playerTwoHp = 4
-      break;
-    case "W":
-      playerTwoHp = 5
-      break;
-    case "X":
-      playerTwoHp = 4
-      break;
-    case "Y":
-      playerTwoHp = 3
-      break;
-    case "Z":
-      playerTwoHp = 4
-      break;
-    default:
-      playerTwoHp = 3
-  }
 
   let playerOneStrength = playerOneHp * playerOne.episode.length;
   let playerTwoStrength = playerTwoHp * playerTwo.episode.length;
@@ -478,8 +310,6 @@ var battleGameFunction = function(heroData, results){
   <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${playerTwoStrength}</h5></div>
   `
 
-  
-
   fightButton.setAttribute("class", "btn btn-danger");
   fightButton.innerHTML = 'FIGHT';
 
@@ -506,7 +336,47 @@ var battleGameFunction = function(heroData, results){
     }
   })
   scrollToTop();
-  modal.hide();
+  //modal.hide();
+}
+
+/** Sets HP of the hero based of the first letter of their name. */
+var setHp = function (nameFirstLetter){
+  switch(nameFirstLetter) {
+    case "A":
+    case "E":
+    case "I":
+    case "M":
+    case "Q":
+    case "U":
+    case "Y":
+      return 3
+      break;
+    case "B":
+    case "D":
+    case "F":
+    case "H":
+    case "J":
+    case "L":
+    case "N":
+    case "P":
+    case "R":
+    case "T":
+    case "V":
+    case "X":
+    case "Z":
+      return 4
+      break;
+    case "C":
+    case "G":
+    case "K":
+    case "O":
+    case "S":
+    case "W":
+      return 5
+      break;
+    default:
+      return 3;
+  }
 }
 
 // initiates the battle game function
