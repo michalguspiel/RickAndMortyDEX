@@ -14,12 +14,27 @@ var isThereMoreHeroesToLoad = false
 
 var filterStatus = StatusEnum.ALL
 
+/** Sets functionality of navbar battle simulation buttton 
+ * TODO : this button has to randomize two heroes so the modal gets populated with data initially,
+ * This heroes must be fetched from API every time button is clicked.
+ * 
+*/
+var setBattleFeature = function(){
+  var navBattleBtn = document.getElementById('nav-battleBtn')
+  navBattleBtn.setAttribute("data-bs-toggle", "modal");
+  navBattleBtn.setAttribute("data-bs-target", "#gameArenaModal");
+  navBattleBtn.addEventListener('click', function(){
+    battleGameFunction()
+})
+}
+
 /**
  * Gets initial heroes from the API 
  * Starts timer for splash screen on the page load.
  * Checks all the checkboxes
  * */ 
 var onLoad = function(){
+  setBattleFeature();
   getHeroes(charactersUrl);
   setTimeout(splashScreenTimeOut,1200);
 }
@@ -72,9 +87,6 @@ function removeSplashScreen(){
   splashScreen.classList.add('display-none');
   isSplashScreenDisplayed = false
 }
-
-
-
 
 /**When user scroll down, hide the navbar
  * When user scroll up, show navbar
@@ -190,7 +202,7 @@ xmlhttp.onreadystatechange = function(){
             drawCard(heroData,hero)
             addOnClickListenerToThisCard(heroData,hero)
             holder.append(hero);
-            battleGameFunction(heroData, results);
+           //battleGameFunction(heroData, results);
         }
     }
 
@@ -259,98 +271,95 @@ var getFirstAppearance = function(url,hero){
   }
 }
 
-var addOnClickListenerToThisCard = function(heroData,hero){
-  hero.addEventListener('click',function(){
-    showHeroModal(heroData)
-  })
+var battleGameFunction = function(){  
+  var firstRequest = new XMLHttpRequest();
+  var secondRequest = new XMLHttpRequest();
+  /** PSEUDO CODE:
+   * Get all modal elements,                                            - DONE 
+   * Randomize two numbers, from 1 to 826(numberOfHeroes - constant)    - DONE
+   * Get two herooes according two the randomized numbers               - DONE
+   * Save fetched heroes in two different variables                     - DONE
+   * set hp for both heroes using setHp function                        - DONE
+   * calculate strenght for both characters using their hp and formula  - DONE
+   * populate heroes elements with proper hero data                     - DONE
+   * provide game logic to Fight button                                 - DONE
+   * add button which allows for next game                              - TODO!
+   */
+   let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
+   let secondNumber = Math.floor(Math.random() * numberOfHeroes);
+
+    var firstCall = "https://rickandmortyapi.com/api/character/" + firstNumber;
+    var secondCall = "https://rickandmortyapi.com/api/character/" + secondNumber;
+
+    firstRequest.open("GET",firstCall,true);
+    firstRequest.send();
+    secondRequest.open("GET",secondCall,true);
+    secondRequest.send();
+
+    var firstHero = null
+    var secondHero =  null
+    
+    versus.innerText = 'VERSUS'
+    fightButton.setAttribute("class", "btn btn-danger");
+    fightButton.innerHTML = 'FIGHT';
+  
+    firstRequest.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = firstRequest.responseText
+        var json = JSON.parse(data)
+        let playerOneHp =  setHp(json.name[0]);
+        firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
+        populateHeroCardInBattle(firstHero,playerOneDiv)
+      }
+    }
+    secondRequest.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = secondRequest.responseText
+        var json = JSON.parse(data)
+        let playerTwoHp =  setHp(json.name[0]);  
+        secondHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerTwoHp * json.episode.length)
+        populateHeroCardInBattle(secondHero,playerTwoDiv)
+      }
+    }
+
+    fightButton.addEventListener('click', function() {    
+      let oneWinner = document.getElementById('playerOneWinner');
+      let twoWinner = document.getElementById('playerTwoWinner');
+  
+      if(firstHero.strength > secondHero.strength){
+        oneWinner.innerText = 'WINNER'
+        twoWinner.innerText = 'LOSER'
+        oneWinner.setAttribute("class", "fs-1 text-success")
+        twoWinner.setAttribute("class", "fs-1 text-danger")
+      } else if (firstHero.strength < secondHero.strength) {
+        twoWinner.innerText = 'WINNER';
+        oneWinner.innerText = 'LOSER';
+        twoWinner.setAttribute("class", "fs-1 text-success")
+        oneWinner.setAttribute("class", "fs-1 text-danger")
+      } else if (firstHero.strength == secondHero.strength) {
+        oneWinner.innerText = "IT'S A DRAW"
+        oneWinner.setAttribute("class", "fs-1 text-danger")
+        twoWinner.innerText = "IT'S A DRAW";
+        twoWinner.setAttribute("class", "fs-1 text-danger")
+  
+      }
+    })
 }
 
-var battleGameFunction = function(heroData, results){  
-  
-  let playerOne = heroData;
-  let randomPlayer = Math.floor(Math.random() * results.length);
-  let playerTwo = results.splice(randomPlayer, 1)[0];
-  let playerOneDiv = document.getElementById('playerOne');
-  let playerTwoDiv = document.getElementById('playerTwo');
-  let versus = document.getElementById('versus'); 
-  let fightButton = document.getElementById('fightButton');
-  let myModalEl = document.getElementById('heroModal');
-  let modal = bootstrap.Modal.getInstance(myModalEl);
-
-  let playerOneHp =  setHp(playerOne.name[0]);
-  let playerTwoHp =  setHp(playerTwo.name[0]);  
-
-
-  let playerOneStrength = playerOneHp * playerOne.episode.length;
-  let playerTwoStrength = playerTwoHp * playerTwo.episode.length;
-
-  function scrollToTop() {
-    window.scroll({top: 0, left: 0, behavior: 'smooth'});
-    document.getElementById('playerOneWinner').innerText = '';
-    document.getElementById('playerTwoWinner').innerText = '';
-  }
-
-  playerOneDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerOne.name}</h2> </div>
-  <img class="hero-card-pic" src="${playerOne.image}" alt="Character picture" >
-  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerOne.species}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerOne.status}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${playerOne.origin.name}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${playerOneStrength}</h5></div>
+var populateHeroCardInBattle = function(hero,holderDiv){
+  holderDiv.innerHTML = `
+  <div class="name-background"> <h2> ${hero.name}</h2> </div>
+  <img class="hero-card-pic" src="${hero.image}" alt="Character picture" >
+  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${hero.species}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${hero.status}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${hero.origin}</h5></div>
+  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${hero.strength}</h5></div>
   `
-
-  versus.innerText = 'VERSUS'
-
-  playerTwoDiv.innerHTML = `
-  <div class="name-background"> <h2> ${playerTwo.name}</h2> </div>
-  <img class="hero-card-pic" src="${playerTwo.image}" alt="Character picture" >
-  <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${playerTwo.species}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${playerTwo.status}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5> ${playerTwo.origin.name}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${playerTwoStrength}</h5></div>
-  `
-
-  fightButton.setAttribute("class", "btn btn-danger");
-  fightButton.innerHTML = 'FIGHT';
-
-  fightButton.addEventListener('click', function() {    
-    let oneWinner = document.getElementById('playerOneWinner');
-    let twoWinner = document.getElementById('playerTwoWinner');
-
-    if(playerOneStrength > playerTwoStrength){
-      oneWinner.innerText = 'WINNER'
-      twoWinner.innerText = 'LOSER'
-      oneWinner.setAttribute("class", "fs-1 text-success")
-      twoWinner.setAttribute("class", "fs-1 text-danger")
-    } else if (playerOneStrength < playerTwoStrength) {
-      twoWinner.innerText = 'WINNER';
-      oneWinner.innerText = 'LOSER';
-      twoWinner.setAttribute("class", "fs-1 text-success")
-      oneWinner.setAttribute("class", "fs-1 text-danger")
-    } else if (playerOneStrength == playerTwoStrength) {
-      oneWinner.innerText = "IT'S A DRAW"
-      oneWinner.setAttribute("class", "fs-1 text-danger")
-      twoWinner.innerText = "IT'S A DRAW";
-      twoWinner.setAttribute("class", "fs-1 text-danger")
-
-    }
-  })
-  scrollToTop();
-  //modal.hide();
 }
 
 /** Sets HP of the hero based of the first letter of their name. */
 var setHp = function (nameFirstLetter){
   switch(nameFirstLetter) {
-    case "A":
-    case "E":
-    case "I":
-    case "M":
-    case "Q":
-    case "U":
-    case "Y":
-      return 3
-      break;
     case "B":
     case "D":
     case "F":
@@ -364,23 +373,18 @@ var setHp = function (nameFirstLetter){
     case "V":
     case "X":
     case "Z":
-      return 4
-      break;
+      return 4;
     case "C":
     case "G":
     case "K":
     case "O":
     case "S":
     case "W":
-      return 5
-      break;
+      return 5;
     default:
       return 3;
   }
 }
-
-// initiates the battle game function
-battleGameButton.addEventListener('click', battleGameFunction);
 
 /**
  * Updates the variable which holds the next page to load
