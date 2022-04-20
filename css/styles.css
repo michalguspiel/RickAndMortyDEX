@@ -208,7 +208,7 @@ background-color: white;
 }
 
 .resultNotification {
-    /* font-weight: 900; */
+    font-weight: bold;
     padding: 20px;
     font-family: 'Shadows Into Light', cursive;
     font-size: 25px;
