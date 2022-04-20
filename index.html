@@ -32,9 +32,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto justify-content-start">
-                <li class="nav-item px-2">
+                <!-- <li class="nav-item px-2">
                   <a class="nav-link active" href="#">Locations</a>
-                </li>
+                </li> -->
                 <li class="nav-item px-2">
                   <button type="button "class="btn btn-primary" data-toggle="modal" data-target="#gameArenaModal" id="nav-battleBtn">Hero battle simulation</button>
                 </li>
@@ -57,23 +57,28 @@
         </div>
     </div>
 
-    <div id="gameArenaModal" class="modal">
-      <div class="modal-dialog modal-dialog-centered">
+    <div id="gameArenaModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="row">
             <div class="col">
-              <div id="playerOneWinner" class="mx-2"></div>
-              <div id="playerOne"></div>        
+              <div id="playerOneWinner" class="mx-auto d-block resultNotification"></div>
+              <div id="playerOne" class="battleCard"></div>        
             </div>
             <div class="col text-center fs-1">
               <div id="versus">
               </div>
               <div id="fightButton">
               </div>
+              <div id="nextFight">                
+              </div>
+              <div id="inEventOfATie" class="resultNotification">
+
+              </div>
             </div>
             <div class="col">
-              <div id="playerTwoWinner" class="mx-2"></div>   
-              <div id="playerTwo" class="col"></div>
+              <div id="playerTwoWinner" class="mx-auto d-block resultNotification"></div>   
+              <div id="playerTwo" class="battleCard"></div>
             </div>
           </div>
         </div>

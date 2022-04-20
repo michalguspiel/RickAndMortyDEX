@@ -26,3 +26,4 @@ const playerOneDiv = document.getElementById('playerOne');
 const playerTwoDiv = document.getElementById('playerTwo');
 const versus = document.getElementById('versus'); 
 const fightButton = document.getElementById('fightButton');
+const nextFight = document.getElementById('nextFight');

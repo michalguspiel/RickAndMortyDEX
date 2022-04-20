@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
 :root {
     --light-green: #37E300;
     --darker-green: #54CD2D;
@@ -195,4 +197,19 @@ background-color: white;
 
 .navbar-show{
     opacity: 1;
+}
+
+.battleCard {
+    border: 2px solid var(--darkest-green);
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--light-gray);
+}
+
+.resultNotification {
+    /* font-weight: 900; */
+    padding: 20px;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 25px;
 }

@@ -283,8 +283,17 @@ var battleGameFunction = function(){
    * calculate strenght for both characters using their hp and formula  - DONE
    * populate heroes elements with proper hero data                     - DONE
    * provide game logic to Fight button                                 - DONE
-   * add button which allows for next game                              - TODO!
-   */
+   * add button which allows for next game                              - DONE
+   */   
+   let oneWinner = document.getElementById('playerOneWinner');
+   let twoWinner = document.getElementById('playerTwoWinner');
+   let draw = document.getElementById('inEventOfATie');
+
+   oneWinner.innerText = '';
+   twoWinner.innerText = '';
+   draw.innerText = '';
+   nextFight.innerText = 'PICK NEW FIGHTERS'
+
    let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
    let secondNumber = Math.floor(Math.random() * numberOfHeroes);
 
@@ -322,39 +331,42 @@ var battleGameFunction = function(){
       }
     }
 
-    fightButton.addEventListener('click', function() {    
-      let oneWinner = document.getElementById('playerOneWinner');
-      let twoWinner = document.getElementById('playerTwoWinner');
+    fightButton.addEventListener('click', function() {
   
       if(firstHero.strength > secondHero.strength){
-        oneWinner.innerText = 'WINNER'
-        twoWinner.innerText = 'LOSER'
-        oneWinner.setAttribute("class", "fs-1 text-success")
-        twoWinner.setAttribute("class", "fs-1 text-danger")
+        oneWinner.innerText = 'GET SCHWIFTY. . . YOU WON!';
+        twoWinner.innerText = 'YOU LOST! YOU DIRTY KNIFE-NIPPLED BASTARD!';
+        draw.innerText = '';
+        oneWinner.style.color = "green";
+        twoWinner.style.color = "red";
       } else if (firstHero.strength < secondHero.strength) {
-        twoWinner.innerText = 'WINNER';
-        oneWinner.innerText = 'LOSER';
-        twoWinner.setAttribute("class", "fs-1 text-success")
-        oneWinner.setAttribute("class", "fs-1 text-danger")
+        twoWinner.innerText = 'GET SCHWIFTY. . . YOU WON!';
+        oneWinner.innerText = 'YOU LOST! YOU DIRTY KNIFE-NIPPLED BASTARD!';
+        draw.innerText = '';
+        oneWinner.style.color = "red";
+        twoWinner.style.color = "green";
       } else if (firstHero.strength == secondHero.strength) {
-        oneWinner.innerText = "IT'S A DRAW"
-        oneWinner.setAttribute("class", "fs-1 text-danger")
-        twoWinner.innerText = "IT'S A DRAW";
-        twoWinner.setAttribute("class", "fs-1 text-danger")
-  
+        oneWinner.innerText = ""
+        twoWinner.innerText = ""
+        draw.innerText = "HOW BORING. . . IT'S A DRAW";
+        draw.style.color = "blue"; 
       }
+      
+      nextFight.innerText = 'NEXT FIGHT';
     })
+
 }
 
 var populateHeroCardInBattle = function(hero,holderDiv){
   holderDiv.innerHTML = `
-  <div class="name-background"> <h2> ${hero.name}</h2> </div>
-  <img class="hero-card-pic" src="${hero.image}" alt="Character picture" >
+  <div> <h2 class="text-center"> ${hero.name}</h2> </div>
+  <img class="hero-card-pic mx-auto d-block" src="${hero.image}" alt="Character picture" >
   <div class="d-flex flex-row"> <h5 class="attribute">Species:&nbsp;</h5> <h5> ${hero.species}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${hero.status}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${hero.origin}</h5></div>
-  <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>+${hero.strength}</h5></div>
   `
+  
+  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>${hero.strength}</h5></div>
 }
 
 /** Sets HP of the hero based of the first letter of their name. */
@@ -385,6 +397,13 @@ var setHp = function (nameFirstLetter){
       return 3;
   }
 }
+
+//Set up next battle
+nextFight.setAttribute("class", "btn btn-danger");    
+nextFight.addEventListener("click", battleGameFunction);
+
+
+
 
 /**
  * Updates the variable which holds the next page to load
