@@ -12,6 +12,9 @@ var isContentLoaded = false
 var isSplashScreenDisplayed = true
 var isThereMoreHeroesToLoad = false
 
+// Empty var for player one
+var playerOne = ''
+
 var filterStatus = StatusEnum.ALL
 
 /** Sets functionality of navbar battle simulation buttton 
@@ -231,7 +234,7 @@ var addOnClickListenerToThisCard = function(heroData,hero){
 }
 
 function showHeroModal(heroData){
-  // console.log(heroData);
+  console.log(heroData);
 
   // The code below puts data from the card into the modal 
   var totalNumberOfEpisodes = heroData.episode.length;
@@ -249,6 +252,38 @@ function showHeroModal(heroData){
   } else {
     document.getElementById("heroModalTotalEpisodes").innerText = `Appears in: ${totalNumberOfEpisodes} episodes`
   }
+
+  var myModalEl = document.getElementById('heroModal');
+  var modal = bootstrap.Modal.getInstance(myModalEl)
+
+  var choosePlayer = function(){
+    playerOne = heroData
+    let chosenPlayerCard = document.querySelector('#chosenPlayer')
+    let playerOneNameCard = document.getElementById('chosenPlayerName')
+    let playerOneImgCard = document.getElementById('chosenPlayerImg')
+    playerOneNameCard.innerText = `You're Playing As:\n${heroData.name}`
+    playerOneNameCard.style.fontFamily = "'Shadows Into Light', cursive"
+    playerOneNameCard.style.fontSize = "30px"
+    playerOneImgCard.setAttribute("src", `${heroData.image}`)
+    playerOneImgCard.style.width = "300px"
+    playerOneImgCard.style.margin = "auto"
+    playerOneImgCard.style.borderRadius = "5%"
+    playerOneImgCard.style.boxShadow = "0px 2px 4px 0 var(--light-black)"
+    chosenPlayerCard.style.width = "400px"
+    chosenPlayerCard.style.height = "500px"
+    chosenPlayerCard.style.border = "2px solid var(--darkest-green)"
+    chosenPlayerCard.style.borderRadius = "5px"
+    chosenPlayerCard.style.marginTop = "75px"
+    chosenPlayerCard.style.padding = "20px"
+    chosenPlayerCard.style.backgroundColor = "var(--light-gray)"
+    modal.hide();
+    window.scrollTo(0, 0);
+  }
+
+  
+  // Event listener to select player one
+  var selectPlayerOneButton = document.getElementById('choosePlayer')
+  selectPlayerOneButton.addEventListener("click", choosePlayer);
 }
 
 /**
@@ -272,7 +307,7 @@ var getFirstAppearance = function(url,hero){
 }
 
 var battleGameFunction = function(){  
-  var firstRequest = new XMLHttpRequest();
+  // var firstRequest = new XMLHttpRequest();
   var secondRequest = new XMLHttpRequest();
   /** PSEUDO CODE:
    * Get all modal elements,                                            - DONE 
@@ -292,35 +327,40 @@ var battleGameFunction = function(){
    oneWinner.innerText = '';
    twoWinner.innerText = '';
    draw.innerText = '';
-   nextFight.innerText = 'PICK NEW FIGHTERS'
+   nextFight.innerText = 'PICK NEW OPPONENT'
 
-   let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
+  //  let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
    let secondNumber = Math.floor(Math.random() * numberOfHeroes);
 
-    var firstCall = "https://rickandmortyapi.com/api/character/" + firstNumber;
+    // var firstCall = "https://rickandmortyapi.com/api/character/" + firstNumber;
     var secondCall = "https://rickandmortyapi.com/api/character/" + secondNumber;
 
-    firstRequest.open("GET",firstCall,true);
-    firstRequest.send();
+    // firstRequest.open("GET",firstCall,true);
+    // firstRequest.send();
     secondRequest.open("GET",secondCall,true);
     secondRequest.send();
 
-    var firstHero = null
+    var firstHero = playerOne
     var secondHero =  null
+
+    
+    let playerOneHp =  setHp(playerOne.name[0]);
+    firstHero = new BattleHero(playerOne.name,playerOne.image,playerOne.species,playerOne.status,playerOne.origin.name,playerOneHp * playerOne.episode.length)
+    populateHeroCardInBattle(firstHero,playerOneDiv)
     
     versus.innerText = 'VERSUS'
     fightButton.setAttribute("class", "btn btn-danger");
     fightButton.innerHTML = 'FIGHT';
-  
-    firstRequest.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var data = firstRequest.responseText
-        var json = JSON.parse(data)
-        let playerOneHp =  setHp(json.name[0]);
-        firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
-        populateHeroCardInBattle(firstHero,playerOneDiv)
-      }
-    }
+
+    // firstRequest.onreadystatechange = function() {
+    //   if (this.readyState == 4 && this.status == 200) {
+    //     var data = firstRequest.responseText
+    //     var json = JSON.parse(data)
+    //     let playerOneHp =  setHp(json.name[0]);
+    //     firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
+    //     populateHeroCardInBattle(firstHero,playerOneDiv)
+    //   }
+    // }
     secondRequest.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var data = secondRequest.responseText
@@ -401,6 +441,17 @@ var setHp = function (nameFirstLetter){
 //Set up next battle
 nextFight.setAttribute("class", "btn btn-danger");    
 nextFight.addEventListener("click", battleGameFunction);
+
+// Choose player function 
+// var choosePlayer = function(heroData){
+//   console.log(heroData)
+//   // let playerOneName = document.getElementById('playerOneName')
+//   // playerOneName.innerText = `You're Playing As: ${heroData.name}`
+// }
+
+// // Event listener to select player one
+// var selectPlayerOneButton = document.getElementById('choosePlayer')
+// selectPlayerOneButton.addEventListener("click", choosePlayer);
 
 
 

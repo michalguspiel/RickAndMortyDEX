@@ -32,11 +32,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto justify-content-start">
-                <!-- <li class="nav-item px-2">
-                  <a class="nav-link active" href="#">Locations</a>
-                </li> -->
                 <li class="nav-item px-2">
                   <button type="button "class="btn btn-primary" data-toggle="modal" data-target="#gameArenaModal" id="nav-battleBtn">Hero battle simulation</button>
+                </li>
+                <li class="nav-item px-2">
+                  <p id="playerOneName" class="text-light"></p>
                 </li>
             </ul>
             <div class="search px-2 align-items-center">
@@ -62,8 +62,8 @@
         <div class="modal-content">
           <div class="row">
             <div class="col">
-              <div id="playerOneWinner" class="mx-auto d-block resultNotification"></div>
-              <div id="playerOne" class="battleCard"></div>        
+              <div id="playerOneWinner" class="mx-auto d-block resultNotification" style="height:80px; margin-bottom: 5px;"></div>
+              <div id="playerOne" class="battleCard"style="margin-bottom: 30px;"></div>        
             </div>
             <div class="col text-center fs-1">
               <div id="versus">
@@ -77,8 +77,8 @@
               </div>
             </div>
             <div class="col">
-              <div id="playerTwoWinner" class="mx-auto d-block resultNotification"></div>   
-              <div id="playerTwo" class="battleCard"></div>
+              <div id="playerTwoWinner" class="mx-auto d-block resultNotification" style="height:80px; margin-bottom: 5px;"></div>   
+              <div id="playerTwo" class="battleCard" style="margin-bottom: 30px;"></div>
             </div>
           </div>
         </div>
@@ -120,12 +120,27 @@
               <div class="col modalCol" id="heroModalTotalEpisodes">
                 
               </div>
+              <button id="choosePlayer" class="btn btn-info">Choose Player</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div>
+    <div id="chosenPlayer" class="mx-auto">
+      <div class="container">
+        <div class="row">
+          <p id="nameText"></p>
+          <p id="chosenPlayerName" class="text-center"></p>
+        </div>
+        <div class="row">
+          <img id="chosenPlayerImg" src="">
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <div class="container-fluid align-items-center">
         <section id="hero_holder" class="row">           
