@@ -307,7 +307,7 @@ var getFirstAppearance = function(url,hero){
 }
 
 var battleGameFunction = function(){  
-  // var firstRequest = new XMLHttpRequest();
+  var firstRequest = new XMLHttpRequest();
   var secondRequest = new XMLHttpRequest();
   /** PSEUDO CODE:
    * Get all modal elements,                                            - DONE 
@@ -327,26 +327,47 @@ var battleGameFunction = function(){
    oneWinner.innerText = '';
    twoWinner.innerText = '';
    draw.innerText = '';
-   nextFight.innerText = 'PICK NEW OPPONENT'
+   
+   if (playerOne.name == undefined) {
+    nextFight.innerText = 'PICK NEW FIGHTERS'
+   } else {
+    nextFight.innerText = 'PICK NEW OPPONENT'
+   }
 
-  //  let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
+   let firstNumber  = Math.floor(Math.random() * numberOfHeroes);
    let secondNumber = Math.floor(Math.random() * numberOfHeroes);
 
-    // var firstCall = "https://rickandmortyapi.com/api/character/" + firstNumber;
+    var firstCall = "https://rickandmortyapi.com/api/character/" + firstNumber;
     var secondCall = "https://rickandmortyapi.com/api/character/" + secondNumber;
 
-    // firstRequest.open("GET",firstCall,true);
-    // firstRequest.send();
+    firstRequest.open("GET",firstCall,true);
+    firstRequest.send();
     secondRequest.open("GET",secondCall,true);
     secondRequest.send();
 
-    var firstHero = playerOne
+    var firstHero = null
     var secondHero =  null
 
+    // If the playerOne variable is empty then player one will be chosen at random
+
+    if(playerOne.name === undefined) {
+      firstRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = firstRequest.responseText
+          var json = JSON.parse(data)
+          let playerOneHp =  setHp(json.name[0]);
+          firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
+          populateHeroCardInBattle(firstHero,playerOneDiv)
+        }
+      }
+    } else {
+      firstHero = playerOne
+      let playerOneHp =  setHp(playerOne.name[0]);
+      firstHero = new BattleHero(playerOne.name,playerOne.image,playerOne.species,playerOne.status,playerOne.origin.name,playerOneHp * playerOne.episode.length)
+      populateHeroCardInBattle(firstHero,playerOneDiv)
+    }
+
     
-    let playerOneHp =  setHp(playerOne.name[0]);
-    firstHero = new BattleHero(playerOne.name,playerOne.image,playerOne.species,playerOne.status,playerOne.origin.name,playerOneHp * playerOne.episode.length)
-    populateHeroCardInBattle(firstHero,playerOneDiv)
     
     versus.innerText = 'VERSUS'
     fightButton.setAttribute("class", "btn btn-danger");
@@ -441,18 +462,6 @@ var setHp = function (nameFirstLetter){
 //Set up next battle
 nextFight.setAttribute("class", "btn btn-danger");    
 nextFight.addEventListener("click", battleGameFunction);
-
-// Choose player function 
-// var choosePlayer = function(heroData){
-//   console.log(heroData)
-//   // let playerOneName = document.getElementById('playerOneName')
-//   // playerOneName.innerText = `You're Playing As: ${heroData.name}`
-// }
-
-// // Event listener to select player one
-// var selectPlayerOneButton = document.getElementById('choosePlayer')
-// selectPlayerOneButton.addEventListener("click", choosePlayer);
-
 
 
 
