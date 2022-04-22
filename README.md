@@ -1,14 +1,35 @@
 # RickAndMortyDEX
 
-GitHub Pages: https://michalguspiel.github.io/RickAndMortyDEX/
+## GitHub Pages URL: https://michalguspiel.github.io/RickAndMortyDEX/
+
+Pair work: Michał Guspiel & Matt Simpson (https://github.com/MattiHel85)
+
+Rick and Morty dex is a web app built using vanilla JavaScript and using AJAX to pull data from rickandmortyapi.com.
+
+## Features implemented
+- Fuzzy search
+- Filter
+- Display cards for each character
+- Battle card game
+
+## Screenshots
+
+<div>
+    <img src="screenshot1.png" width="500">
+    <br>
+    <img src="screenshot3.png" width="500">
+    <br>
+    <img src="screenshot4.png" width="500">
+    <br>
+    <img src="screenshot5.png" width="500">
+    <br>
+    <img src="screenshot6.png" width="500">
+    <br>
+    <img src="screenshot7.png" width="500">
+</div>
 
 
-##TODO:
-
-- Move battle feature out of the home screen
-- Randomized character must be randomized and fetched from the API, so that every possible character can be picked:
-You can get a single character by adding the id as a parameter: /character/2
-
-https://rickandmortyapi.com/api/character/2
-- Improve UI of battle mode
-- Improve UI of each card? Maybe when hovered over card should somehow get bigger or shine?
+### Future improvements
+- Improve mobile responsiveness
+- UI improvement (move away from obvious bootstrap styles)
+- Add animations to battle card game
