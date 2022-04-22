@@ -327,7 +327,7 @@ var battleGameFunction = function(){
    oneWinner.innerText = '';
    twoWinner.innerText = '';
    draw.innerText = '';
-   
+
    if (playerOne.name == undefined) {
     nextFight.innerText = 'PICK NEW FIGHTERS'
    } else {
@@ -348,6 +348,16 @@ var battleGameFunction = function(){
     var firstHero = null
     var secondHero =  null
 
+
+    // This function builds player one regardless of where the data is pulled from
+    var createFirstHero = function (playerOneData) {
+      var fighter = playerOneData
+      let playerOneHp =  setHp(fighter.name[0]);
+      firstHero = new BattleHero(fighter.name,fighter.image,fighter.species,fighter.status,fighter.origin.name,playerOneHp * fighter.episode.length)
+      populateHeroCardInBattle(firstHero,playerOneDiv)
+
+    }
+
     // If the playerOne variable is empty then player one will be chosen at random
 
     if(playerOne.name === undefined) {
@@ -355,16 +365,11 @@ var battleGameFunction = function(){
         if (this.readyState == 4 && this.status == 200) {
           var data = firstRequest.responseText
           var json = JSON.parse(data)
-          let playerOneHp =  setHp(json.name[0]);
-          firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
-          populateHeroCardInBattle(firstHero,playerOneDiv)
+          createFirstHero(json)
         }
       }
     } else {
-      firstHero = playerOne
-      let playerOneHp =  setHp(playerOne.name[0]);
-      firstHero = new BattleHero(playerOne.name,playerOne.image,playerOne.species,playerOne.status,playerOne.origin.name,playerOneHp * playerOne.episode.length)
-      populateHeroCardInBattle(firstHero,playerOneDiv)
+      createFirstHero(playerOne)
     }
 
     
