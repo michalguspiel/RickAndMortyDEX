@@ -397,29 +397,33 @@ var battleGameFunction = function(){
     }
 
     fightButton.addEventListener('click', function() {
-  
-      if(firstHero.strength > secondHero.strength){
-        oneWinner.innerText = getWinMessage();
-        twoWinner.innerText = getLoseMessage();
-        draw.innerText = '';
-        oneWinner.style.color = "green";
-        twoWinner.style.color = "red";
-      } else if (firstHero.strength < secondHero.strength) {
-        twoWinner.innerText = getWinMessage();
-        oneWinner.innerText = getLoseMessage();
-        draw.innerText = '';
-        oneWinner.style.color = "red";
-        twoWinner.style.color = "green";
-      } else if (firstHero.strength == secondHero.strength) {
-        oneWinner.innerText = ""
-        twoWinner.innerText = ""
-        draw.innerText = getDrawMessage();
-        draw.style.color = "blue"; 
-      }
-      
-      nextFight.innerText = 'NEXT FIGHT';
-    })
+      shakingElements = []
+      shake(playerOneDiv,25)
+      shake(playerTwoDiv,25)
+      setTimeout(() => {    // IT'S JUST THAT A LITTLE DELAY MAKE THE BATTLE MORE REALISTIC. LIKE SOME REAL DIFFICULT COMPUTATION IS GOING BEHIND THE CURTAIN!
+        console.log("I'm here to make a little delay on purpose!");
+        if(firstHero.strength > secondHero.strength){
+          oneWinner.innerText = getWinMessage();
+          twoWinner.innerText = getLoseMessage();
+          draw.innerText = '';
+          oneWinner.style.color = "green";
+          twoWinner.style.color = "red";
+        } else if (firstHero.strength < secondHero.strength) {
+          twoWinner.innerText = getWinMessage();
+          oneWinner.innerText = getLoseMessage();
+          draw.innerText = '';
+          oneWinner.style.color = "red";
+          twoWinner.style.color = "green";
+        } else if (firstHero.strength == secondHero.strength) {
+          oneWinner.innerText = ""
+          twoWinner.innerText = ""
+          draw.innerText = getDrawMessage();
+          draw.style.color = "blue"; 
+        }
+        nextFight.innerText = 'NEXT FIGHT';
+      }, 300);   
 
+    })
 }
 
 Array.prototype.random = function () {
@@ -492,4 +496,50 @@ var updateNextPage = function(json){
 var loadMoreHeros = function(){
   console.log("Load more heroes, Next page to load: " + nextPageToLoad)
   getHeroes(nextPageToLoad,null,true)
+}
+
+var shakingElements = [];
+var shake = function (element, magnitude = 16) {
+  //First set the initial tilt angle to the right (+1) 
+  var tiltAngle = 1;
+  //A counter to count the number of shakes
+  var counter = 1;
+  //The total number of shakes (there will be 1 shake per frame)
+  var numberOfShakes = 15;
+  //Capture the element's position and angle so you can
+  //restore them after the shaking has finished
+  var startX = 0,
+      startY = 0,
+      startAngle = 0;
+  // Divide the magnitude into 10 units so that you can 
+  // reduce the amount of shake by 10 percent each frame
+  var magnitudeUnit = magnitude / numberOfShakes;
+  //The `randomInt` helper function
+  var randomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+  //Add the element to the `shakingElements` array if it
+  //isn't already there
+  if(shakingElements.indexOf(element) === -1) {
+    //console.log("added")
+    shakingElements.push(element);
+      upAndDownShake();
+    }
+  function upAndDownShake() {
+    //Shake the element while the `counter` is less than 
+    //the `numberOfShakes`
+    if (counter < numberOfShakes) {
+      //Reset the element's position at the start of each shake
+      element.style.transform = 'translate(' + startX + 'px, ' + startY + 'px)';
+      //Reduce the magnitude
+      magnitude -= magnitudeUnit;
+      //Randomly change the element's position
+      var randomX = randomInt(-magnitude, magnitude);
+      var randomY = randomInt(-magnitude, magnitude);
+      element.style.transform = 'translate(' + randomX + 'px, ' + randomY + 'px)';
+      //Add 1 to the counter
+      counter += 1;
+      requestAnimationFrame(upAndDownShake);
+    }
+  }
 }
