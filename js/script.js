@@ -399,27 +399,41 @@ var battleGameFunction = function(){
     fightButton.addEventListener('click', function() {
   
       if(firstHero.strength > secondHero.strength){
-        oneWinner.innerText = 'GET SCHWIFTY. . . YOU WON!';
-        twoWinner.innerText = 'YOU LOST! YOU DIRTY KNIFE-NIPPLED BASTARD!';
+        oneWinner.innerText = getWinMessage();
+        twoWinner.innerText = getLoseMessage();
         draw.innerText = '';
         oneWinner.style.color = "green";
         twoWinner.style.color = "red";
       } else if (firstHero.strength < secondHero.strength) {
-        twoWinner.innerText = 'GET SCHWIFTY. . . YOU WON!';
-        oneWinner.innerText = 'YOU LOST! YOU DIRTY KNIFE-NIPPLED BASTARD!';
+        twoWinner.innerText = getWinMessage();
+        oneWinner.innerText = getLoseMessage();
         draw.innerText = '';
         oneWinner.style.color = "red";
         twoWinner.style.color = "green";
       } else if (firstHero.strength == secondHero.strength) {
         oneWinner.innerText = ""
         twoWinner.innerText = ""
-        draw.innerText = "HOW BORING. . . IT'S A DRAW";
+        draw.innerText = getDrawMessage();
         draw.style.color = "blue"; 
       }
       
       nextFight.innerText = 'NEXT FIGHT';
     })
 
+}
+
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}
+
+var getWinMessage = function(){
+  return WinMessages.random().toUpperCase()
+}
+var getDrawMessage = function(){
+  return DrawMessages.random().toUpperCase()
+}
+var getLoseMessage = function(){
+  return LoseMessages.random().toUpperCase()
 }
 
 var populateHeroCardInBattle = function(hero,holderDiv){

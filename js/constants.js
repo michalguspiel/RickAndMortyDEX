@@ -5,6 +5,10 @@ const charactersUrl = "https://rickandmortyapi.com/api/character"
 
 const StatusEnum = Object.freeze({ALL:"all", ALIVE:"alive", DEAD:"dead",UNKNOWN:"unknown"});
 
+const WinMessages =  ["Wubba lubba dub dub, I won!","I don't care I won!","Life is effort and I'll stop when I die! I Won!","Get Schifty... I won!"]
+const LoseMessages = ["You lost! You dirty knife-nippled bastard!","Boom! Big reveal, You lost!","We are all gonna die anyways, You lost!","Welcome to the club, pal You lost!"]
+const DrawMessages = ["Sometimes science is more than science, it's a draw", "It's a draw, how boring.","To live is to risk it all.. this time it's a draw."]
+
 const numberOfHeroes = 826;
 
 /**HTML ELEMENTS */
