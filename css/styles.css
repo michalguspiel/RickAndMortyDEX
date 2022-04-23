@@ -217,3 +217,36 @@ background-color: white;
 .playerOneName {
     font-family: 'Shadows Into Light', cursive;
 }
+
+#release-hero-btn{
+    margin-top: 20px;
+    width: 70%;
+}
+
+#release-hero-btn-holder{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#chosenPlayerImg{
+    width:300px;
+    margin: auto;
+    border-radius: 5%;
+    box-shadow: 0px 2px 4px 0 var(--light-black);
+}
+
+#chosenPlayer{
+    display: none;
+    width: 400px;
+    height: 500px;
+    border: 2px solid var(--darkest-green);
+    border-radius: 5px;
+    margin-top: 75px;
+    padding: 20px;
+    background-color: var(--light-gray);
+}
+
+#chosenPlayerName{
+    font-size: 30px;
+}

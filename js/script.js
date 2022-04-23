@@ -258,29 +258,39 @@ function showHeroModal(heroData){
 
   var choosePlayer = function(){
     playerOne = heroData
-    let chosenPlayerCard = document.querySelector('#chosenPlayer')
+    let chosenPlayerCard = document.getElementById('chosenPlayer')
+    chosenPlayerCard.style.display = "block" // need to make sure the card is in display
+    chosenPlayerCard.innerHTML = `
+    <div class="container">
+        <div class="row">
+          <p id="nameText"></p>
+          <p id="chosenPlayerName" class="text-center"></p>
+        </div>
+        <div class="row">
+          <img id="chosenPlayerImg" src="">
+        </div>
+        <div class="row" id="release-hero-btn-holder">
+          <button type="button "class="btn btn-primary" id="release-hero-btn">Release hero</button>
+        </div>
+      </div>
+  
+    `
     let playerOneNameCard = document.getElementById('chosenPlayerName')
     let playerOneImgCard = document.getElementById('chosenPlayerImg')
     playerOneNameCard.innerText = `You're Playing As:\n${heroData.name}`
     playerOneNameCard.style.fontFamily = "'Shadows Into Light', cursive"
-    playerOneNameCard.style.fontSize = "30px"
     playerOneImgCard.setAttribute("src", `${heroData.image}`)
-    playerOneImgCard.style.width = "300px"
-    playerOneImgCard.style.margin = "auto"
-    playerOneImgCard.style.borderRadius = "5%"
-    playerOneImgCard.style.boxShadow = "0px 2px 4px 0 var(--light-black)"
-    chosenPlayerCard.style.width = "400px"
-    chosenPlayerCard.style.height = "500px"
-    chosenPlayerCard.style.border = "2px solid var(--darkest-green)"
-    chosenPlayerCard.style.borderRadius = "5px"
-    chosenPlayerCard.style.marginTop = "75px"
-    chosenPlayerCard.style.padding = "20px"
-    chosenPlayerCard.style.backgroundColor = "var(--light-gray)"
     modal.hide();
     window.scrollTo(0, 0);
-  }
 
-  
+      // Event listener to release hero
+  var releaseHeroBtn = document.getElementById('release-hero-btn')
+  releaseHeroBtn.addEventListener("click",function(){
+    playerOne = ''
+    chosenPlayerCard.innerHTML = ""
+    chosenPlayerCard.style.display = "none"
+  });
+  }
   // Event listener to select player one
   var selectPlayerOneButton = document.getElementById('choosePlayer')
   selectPlayerOneButton.addEventListener("click", choosePlayer);
@@ -372,21 +382,10 @@ var battleGameFunction = function(){
       createFirstHero(playerOne)
     }
 
-    
-    
     versus.innerText = 'VERSUS'
     fightButton.setAttribute("class", "btn btn-danger");
     fightButton.innerHTML = 'FIGHT';
 
-    // firstRequest.onreadystatechange = function() {
-    //   if (this.readyState == 4 && this.status == 200) {
-    //     var data = firstRequest.responseText
-    //     var json = JSON.parse(data)
-    //     let playerOneHp =  setHp(json.name[0]);
-    //     firstHero = new BattleHero(json.name,json.image,json.species,json.status,json.origin.name,playerOneHp * json.episode.length)
-    //     populateHeroCardInBattle(firstHero,playerOneDiv)
-    //   }
-    // }
     secondRequest.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var data = secondRequest.responseText
@@ -431,9 +430,7 @@ var populateHeroCardInBattle = function(hero,holderDiv){
   <div class="d-flex flex-row"> <h5 class="attribute">Status:&nbsp;</h5> <h5> ${hero.status}</h5></div>
   <div class="d-flex flex-row"> <h5 class="attribute">Origin:&nbsp;</h5> <h5>${hero.origin}</h5></div>
   `
-  
-  // <div class="d-flex flex-row"> <h5 class="attribute">Strength:&nbsp;</h5> <h5>${hero.strength}</h5></div>
-}
+  }
 
 /** Sets HP of the hero based of the first letter of their name. */
 var setHp = function (nameFirstLetter){
@@ -467,8 +464,6 @@ var setHp = function (nameFirstLetter){
 //Set up next battle
 nextFight.setAttribute("class", "btn btn-danger");    
 nextFight.addEventListener("click", battleGameFunction);
-
-
 
 /**
  * Updates the variable which holds the next page to load
