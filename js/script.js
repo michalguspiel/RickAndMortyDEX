@@ -398,8 +398,8 @@ var battleGameFunction = function(){
 
     fightButton.addEventListener('click', function() {
       shakingElements = []
-      shake(playerOneDiv,25)
-      shake(playerTwoDiv,25)
+      shake(playerOneDiv,45)
+      shake(playerTwoDiv,45)
       setTimeout(() => {    // IT'S JUST THAT A LITTLE DELAY MAKE THE BATTLE MORE REALISTIC. LIKE SOME REAL DIFFICULT COMPUTATION IS GOING BEHIND THE CURTAIN!
         console.log("I'm here to make a little delay on purpose!");
         if(firstHero.strength > secondHero.strength){
@@ -505,7 +505,7 @@ var shake = function (element, magnitude = 16) {
   //A counter to count the number of shakes
   var counter = 1;
   //The total number of shakes (there will be 1 shake per frame)
-  var numberOfShakes = 15;
+  var numberOfShakes = 20;
   //Capture the element's position and angle so you can
   //restore them after the shaking has finished
   var startX = 0,
